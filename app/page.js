@@ -9,10 +9,10 @@ import Signup from "@/components/Signup";
 
 export default function Home() {
   return (
-    <main  className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
-      <Dashboard />
+    <main className="flex min-h-screen flex-col items-center justify-between p-24 w-full h-full">
+      <div className="w-full h-full">
+        <Dashboard />
       </div>
     </main>
-  );
+  )
 }
