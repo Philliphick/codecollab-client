@@ -1,18 +1,47 @@
+"use client"
 import React from 'react'
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const ProjectCard = () => {
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    // Fetch posts
+    axios.get('http://localhost:5000/')
+    .then(res => {
+      const { data } = res.data;
+      setPosts(data);
+      console.log(data)
+    
+    })
+    
+    .catch(error => {
+      console.error('Error fetching books:', error);
+    });
+    
+  }, []) 
+
+
   return (
-    <div className="p-4 bg-white shadow rounded">
-      <h2 className="text-xl mb-2">ProjectCard</h2>
-      <h3 className="text-lg mb-2">Title</h3>
-      <h3 className="text-lg mb-2">Description</h3>
-      <p className="mb-2">Timeframe</p>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Tailwind_CSS_logo.svg/768px-Tailwind_CSS_logo.svg.png" className="w-10 h-3"/>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Tailwind_CSS_logo.svg/768px-Tailwind_CSS_logo.svg.png" className="w-10 h-3"/>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Tailwind_CSS_logo.svg/768px-Tailwind_CSS_logo.svg.png" className="w-10 h-3"/>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Tailwind_CSS_logo.svg/768px-Tailwind_CSS_logo.svg.png" className="w-10 h-3"/>
+    <>
+    
+    {posts.map(post => (
+
+      <div className="p-4 bg-white shadow rounded" key={post._id}>
+      <h2 className="text-xl mb-2">{post.name}</h2>
+      <h3 className="text-lg mb-2">Tags: {post.tags.join(', ')}</h3>
+      <p className="mb-2">Repo: {post.repoLink}</p>
+      <p className="mb-2">Timeframe: {post.timeframe}</p>
     </div>
+  )
+ 
+
+    )}
+   </> 
   )
 }
 
 export default ProjectCard
+
