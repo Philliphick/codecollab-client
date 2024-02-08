@@ -45,9 +45,7 @@ return (
          <div className="p-4 bg-gray-200 shadow rounded">
            <MakePost />
          </div>
-         <div className="p-4 bg-gray-300 shadow rounded">
-           <FullPost />
-         </div>
+         
          <div className="p-4 bg-gray-300 shadow rounded">
            <Login />
          </div>
