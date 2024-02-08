@@ -1,5 +1,6 @@
 import React from 'react'
 import Comments from './Comments'
+import DeleteButton from './DeleteButton'
 
 const FullPost = () => {
   return (
@@ -10,6 +11,9 @@ const FullPost = () => {
       <div className="mb-2">Timeframe</div>
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Tailwind_CSS_logo.svg/768px-Tailwind_CSS_logo.svg.png" className="w-10 h-3 mb-2"/>
       <Comments />
+      <div>
+        <DeleteButton />
+      </div>
     </div>
   )
 }
