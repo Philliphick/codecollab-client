@@ -11,7 +11,7 @@ const ProjectCard = () => {
 
   useEffect(() => {
     // Fetch posts
-    axios.get('http://localhost:5000/')
+    axios.get('https://project-board-backend.onrender.com')
     .then(res => {
       const { data } = res.data;
       setPosts(data);
