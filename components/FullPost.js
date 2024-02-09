@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import Comments from './Comments'
+
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -49,6 +50,7 @@ const FullPost = ({ postId }) => {
 
  
 
+
   return (
     <>
     <div className="p-4 bg-white shadow rounded">
@@ -59,6 +61,9 @@ const FullPost = ({ postId }) => {
       <div className="mb-2"><p>Repo Link: {post.repoLink}</p></div>
       
       <Comments />
+      <div>
+        <DeleteButton />
+      </div>
     </div>
   </>
   )
