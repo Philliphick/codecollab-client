@@ -61,9 +61,7 @@ const FullPost = ({ postId }) => {
       <div className="mb-2"><p>Repo Link: {post.repoLink}</p></div>
       
       <Comments />
-      <div>
-        <DeleteButton />
-      </div>
+      
     </div>
   </>
   )
