@@ -2,10 +2,12 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import FullPost from './FullPost';
 
 const ProjectCard = () => {
 
   const [posts, setPosts] = useState([]);
+  const [postId, setPostId] = useState('');
 
   useEffect(() => {
     // Fetch posts
@@ -14,14 +16,19 @@ const ProjectCard = () => {
       const { data } = res.data;
       setPosts(data);
       console.log(data)
-    
+      
     })
-    
+
     .catch(error => {
       console.error('Error fetching books:', error);
     });
     
   }, []) 
+
+  const handleButtonClick = (currentId) => {
+    setPostId(currentId);
+    console.log({postId})
+  }
 
 
   return (
@@ -34,11 +41,13 @@ const ProjectCard = () => {
       <h3 className="text-lg mb-2">Tags: {post.tags.join(', ')}</h3>
       <p className="mb-2">Repo: {post.repoLink}</p>
       <p className="mb-2">Timeframe: {post.timeframe}</p>
-    </div>
-  )
- 
-
+      <button onClick={() => handleButtonClick(post._id)}>View Full Post</button>
+      
+    </div>)
     )}
+
+        {postId && <FullPost postId={ postId } />}
+
    </> 
   )
 }
