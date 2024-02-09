@@ -14,7 +14,7 @@ const FullPost = ({ postId }) => {
     if (postId) {
       const id = postId;
       
-      axios.get(`http://localhost:5000/${id}`)
+      axios.get(`https://project-board-backend.onrender.com${id}`)
         .then(res => {
           const newPost = {
             _id: res.data[0]._id,
