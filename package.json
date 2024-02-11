@@ -18,5 +18,9 @@
     "autoprefixer": "^10.0.1",
     "postcss": "^8",
     "tailwindcss": "^3.3.0"
-  }
+  },
+  
+
+    "proxy": "https://project-board-backend.onrender.com"
+  
 }
