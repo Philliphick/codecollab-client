@@ -7,6 +7,8 @@ import Sidebar from './Sidebar'
 import Login from './Login'
 import Signup from './Signup'
 import axios from 'axios'
+import Delete from './Delete'
+
 
 const Dashboard = () => {
 
@@ -50,6 +52,9 @@ return (
          </div>
          <div className="p-4 bg-gray-300 shadow rounded">
            <Login />
+         </div>
+         <div className="p-4 bg-gray-300 shadow rounded">
+           <Delete />
          </div>
          <div className="p-4 bg-gray-300 shadow rounded">
            <Signup />
