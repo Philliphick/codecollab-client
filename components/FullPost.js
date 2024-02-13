@@ -8,13 +8,13 @@ import axios from 'axios';
 
 const FullPost = ({ postId }) => {
 
-  const [post, setPost] = useState([]);
+  const [post, setPost] = useState({});
 
   useEffect(() => {
     if (postId) {
       const id = postId;
       
-      axios.get(`https://project-board-backend.onrender.com${id}`)
+      axios.get(`https://project-board-backend.onrender.com/${id}`)
         .then(res => {
           const newPost = {
             _id: res.data[0]._id,
@@ -54,8 +54,8 @@ const FullPost = ({ postId }) => {
   return (
     <>
     <div className="p-4 bg-white shadow rounded">
-      <h1 className='text-xl'>{post.name}</h1>
-      <div className="mb-2 font-bold"><p>{post.description}</p></div>
+      <h1 className='text-xl'>{post && post.name}</h1>
+      <div className="mb-2 font-bold"><p>{post && post.description}</p></div>
       <div className="mb-2"><p>Expected timeframe: {post.timeframe}</p></div>
       <div className="mb-2"><p>Tags: {post.tags}</p></div>
       <div className="mb-2"><p>Repo Link: {post.repoLink}</p></div>

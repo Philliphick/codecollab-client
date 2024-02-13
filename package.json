@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^3.5.0",
     "axios": "^1.6.7",
     "next": "^14.1.0",
     "react": "^18.2.0",
@@ -18,5 +19,6 @@
     "autoprefixer": "^10.0.1",
     "postcss": "^8",
     "tailwindcss": "^3.3.0"
-  }
+  },
+  "proxy": "https://project-board-backend.onrender.com"
 }
