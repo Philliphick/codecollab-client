@@ -7,7 +7,7 @@ import Sidebar from './Sidebar'
 import Login from './Login'
 import Signup from './Signup'
 import axios from 'axios'
-import ProtectedPage from './ProtectedPage'
+
 
 
 
@@ -40,7 +40,7 @@ return (
  <div className="flex w-full">
        <div className="w-1/5">
         <Sidebar />
-        <ProtectedPage />
+        
        </div>
      <div className="w-4/5 space-y-4">
        <div className="p-4 bg-white shadow rounded">
