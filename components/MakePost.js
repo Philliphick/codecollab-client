@@ -1,19 +1,22 @@
-'use client'  
+'use client'
 import React, { useState } from 'react';
 import axios from 'axios';
+import { languages } from '../src/languages';
+import Image from 'next/image';
 
 export const MakePost = () => {
   const [formData, setFormData] = useState({ name: '', description: '', repoLink: '', tags: [], timeframe: '' });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleCheckboxChange = (e) => {
-    if (e.target.checked) {
-      setFormData({ ...formData, tags: [...formData.tags, e.target.value] });
+  const handleLanguageClick = (language) => {
+    if (formData.tags.includes(language)) {
+      setFormData({ ...formData, tags: formData.tags.filter(tag => tag !== language) });
     } else {
-      setFormData({ ...formData, tags: formData.tags.filter(tag => tag !== e.target.value) });
+      setFormData({ ...formData, tags: [...formData.tags, language] });
     }
   };
 
@@ -22,6 +25,7 @@ export const MakePost = () => {
     try {
       const response = await axios.post('http://localhost:5001/makePost', formData);
       console.log(response.data);
+      setSubmitted(true);
     } catch (error) {
       console.error(error);
     }
@@ -30,6 +34,7 @@ export const MakePost = () => {
   return (
     <div className="p-4 bg-white shadow rounded">
       <h1>Create a Project</h1>
+      {submitted && <div className="text-green-500">Your project has been submitted!</div>}
       <form onSubmit={handleSubmit}>
         <div className="mb-2 font-bold">
           Project Name 
@@ -44,22 +49,12 @@ export const MakePost = () => {
           <input type="text" name="repoLink" className="ml-2 p-1 border rounded" onChange={handleChange} />
         </div>
         <div className="flex space-x-4">
-          <label className="flex items-center space-x-2">
-            <input type="checkbox" name="tags" value="JS" className="form-checkbox h-5 w-5 text-blue-600" onChange={handleCheckboxChange} />
-            <span>JS</span>
-          </label>
-          <label className="flex items-center space-x-2">
-            <input type="checkbox" name="tags" value="Python" className="form-checkbox h-5 w-5 text-blue-600" onChange={handleCheckboxChange} />
-            <span>Python</span>
-          </label>
-          <label className="flex items-center space-x-2">
-            <input type="checkbox" name="tags" value="Java" className="form-checkbox h-5 w-5 text-blue-600" onChange={handleCheckboxChange} />
-            <span>Java</span>
-          </label>
-          <label className="flex items-center space-x-2">
-            <input type="checkbox" name="tags" value="PHP" className="form-checkbox h-5 w-5 text-blue-600" onChange={handleCheckboxChange} />
-            <span>PHP</span>
-          </label>
+          {languages.map(({ name, image }) => (
+            <div key={name} className={`p-1 ${formData.tags.includes(name) ? 'border-2 border-blue-500' : 'border border-gray-300'}`} onClick={() => handleLanguageClick(name)}>
+              <Image src={image} alt={name} width={50} height={50} />
+              
+            </div>
+          ))}
         </div>
         <div className="mb-2">
           Timeframe
