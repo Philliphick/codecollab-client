@@ -4,53 +4,48 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import FullPost from './FullPost';
 import DeletePost from './DeleteButton';
+import MakePost from './MakePost'
 
-const ProjectCard = () => {
 
-  const [posts, setPosts] = useState([]);
-  const [postId, setPostId] = useState('');
 
-  useEffect(() => {
-    // Fetch posts
-    axios.get('https://project-board-backend.onrender.com')
-    .then(res => {
-      const { data } = res.data;
-      setPosts(data);
-      console.log(data)
-      
-    })
+export const ProjectCard = ({ post, selectedLanguages }) => {
 
-    .catch(error => {
-      console.error('Error fetching projects:', error);
-    });
-    
-  }, []) 
+  const [postId, setPostId] = useState(null);
 
-  const handleButtonClick = (currentId) => {
-    setPostId(currentId);
-    console.log({postId})
+  if (selectedLanguages.length > 0 && !selectedLanguages.some(lang => post.tags.includes(lang))) {
+    return null;
   }
 
+  const handleButtonClick = () => {
+    if (postId === post._id) {
+      setPostId(null);  // Hide the FullPost component if it's already visible
+    } else {
+      setPostId(post._id);  // Show the FullPost component if it's not already visible
+    }
+  };
 
   return (
-    <>
-    
-    {posts.map(post => (
-  <div className="p-4 bg-white shadow rounded" key={post._id}>
-    <h2 className="text-xl mb-2">{post.name}</h2>
-    <h3 className="text-lg mb-2">Tags: {post.tags.join(', ')}</h3>
-    <p className="mb-2">Repo: {post.repoLink}</p>
-    <p className="mb-2">Timeframe: {post.timeframe}</p>
-    <button onClick={() => handleButtonClick(post._id)}>View Full Post</button>
-    <DeletePost _id={post._id} />
-  </div>
-))}
+    <div className="p-4 bg-white shadow rounded max-w-xs mx-auto">
+      <h2 className="text-xl font-bold mb-2">{post.name}</h2>
+      <p className="text-gray-700 mb-2">{post.description}</p>
+      <a href={post.repoLink} className="text-blue-500 mb-2 block">Repo Link</a>
+      <div className="mb-2">
+        {post.tags.map(tag => (
+          <span key={tag} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{tag}</span>
+        ))}
+      </div>
+      <span className="block mb-2">{post.timeframe}</span>
+      <button onClick={() => handleButtonClick(post._id)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        View Full Post
+      </button>
+      <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2">
+      <DeletePost _id={post._id} />
+      </button>
+      {postId === post._id && <FullPost _id={postId} />}
+      
+    </div>
+  );
+};
 
-        {postId && <FullPost postId={ postId } />}
 
-   </> 
-  )
-}
-
-export default ProjectCard
-
+export default ProjectCard;

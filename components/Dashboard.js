@@ -1,13 +1,10 @@
-"use client"
-import React, { useEffect, useState } from 'react'
-import ProjectCard from './ProjectCard'
+'use client'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import ProjectCard from './ProjectCard';
+import Sidebar from './Sidebar';
 import MakePost from './MakePost'
-import FullPost from './FullPost'
-import Sidebar from './Sidebar'
-import Login from './Login'
-import Signup from './Signup'
-import axios from 'axios'
-import ProtectedPage from './ProtectedPage'
+
 
 
 
@@ -70,3 +67,4 @@ return (
 }
 
 export default Dashboard
+
