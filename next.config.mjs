@@ -1,19 +1,22 @@
 /** @type {import('next').NextConfig} */
 
+const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: '/api/auth/:path',
+        destination: '/api/auth/:path*',
+      },
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:5001/api/:path*',
+      },
+    ];
+  },
+};
 
-const NextConfig = {
-    async rewrites() {
-      return [
-        {
-            source: '/api/auth/:path',
-            destination: '/api/auth/:path*',
-          },
-        {
-          source: '/api/:path*',
-          destination: 'http://localhost:5000/api/:path*',
-        },
-      ];
-    },
-  };
-   
-  export default NextConfig;
+export default nextConfig;
+
+
+
+
