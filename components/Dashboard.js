@@ -104,22 +104,39 @@ export const Dashboard = () => {
     ? posts.filter(post => selectedLanguages.some(lang => post.tags.includes(lang)))
     : posts;
 
-  return (
-    <div className="flex space-x-4">
-      <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
-      <div className="flex flex-wrap space-x-4">
-        {filteredPosts.map(post => (
-          <ProjectCard key={post.id} post={post} selectedLanguages={selectedLanguages} />
-        ))}
+    return (
+      <div className="flex flex-col">
+        <div className="fixed left-0 top-0 h-full">
+          <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
+        </div>
+        <div className="ml-28">
+          <div className="flex flex-wrap gap-10">
+            {filteredPosts.map(post => (
+              <ProjectCard key={post.id} post={post} selectedLanguages={selectedLanguages} />
+            ))}
+          </div>
+          <div className="mt-12 w-3/4 flex justify-center">
+            <MakePost />
+          </div>
+        </div>
       </div>
-      <div>
-        {/* <Link href="/makePost" passHref>
-          <a className="px-2 py-1 text-sm bg-blue-500 text-white rounded">Create Project</a>
-        </Link> */}
-        <MakePost />
-      </div>
-    </div>
-  );
+    );
+  // return (
+  //   <div className="flex space-x-4">
+  //     <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
+  //     <div className="flex flex-wrap space-x-4 space-y-4">
+  //       {filteredPosts.map(post => (
+  //         <ProjectCard key={post.id} post={post} selectedLanguages={selectedLanguages} />
+  //       ))}
+  //     </div>
+  //     <div>
+  //       {/* <Link href="/makePost" passHref>
+  //         <a className="px-2 py-1 text-sm bg-blue-500 text-white rounded">Create Project</a>
+  //       </Link> */}
+  //       <MakePost />
+  //     </div>
+  //   </div>
+  // );
 };
 
 export default Dashboard;

@@ -26,22 +26,24 @@ export const ProjectCard = ({ post, selectedLanguages }) => {
   };
 
   return (
-    <div className="p-4 bg-white shadow rounded max-w-xs mx-auto">
-      <h2 className="text-xl font-bold mb-2">{post.name}</h2>
-      <p className="text-gray-700 mb-2">{post.description}</p>
-      <a href={post.repoLink} className="text-blue-500 mb-2 block">Repo Link</a>
-      <div className="mb-2">
+    <div className="p-4 border border-gray-400 shadow-xl rounded-md max-w-xs mx-auto hover:scale-110 hover:shadow-2xl hover:bg-gray-300 transition duration-300 ease-in-out">
+      <h2 className="text-xl text-gray-800 font-bold mb-1 p-2 text-center">{post.name}</h2>
+      <p className="text-gray-800 mb-2">{post.description}</p>
+      <a href={post.repoLink} className="text-blue-700 mb-2 block">GitHub</a>
+      <div className="mb-2 ml-2">
         {post.tags.map(tag => (
           <span key={tag} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{tag}</span>
         ))}
       </div>
-      <span className="block mb-2">{post.timeframe}</span>
-      <button onClick={() => handleButtonClick(post._id)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      {/* <span className="block mb-2">{post.timeframe}</span> */}
+      <div className=''>
+      <button onClick={() => handleButtonClick(post._id)} className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 ml-2 rounded opacity-75">
         View Full Post
       </button>
-      <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2">
+      <button className="">
       <DeletePost _id={post._id} />
       </button>
+      </div>
       {postId === post._id && <FullPost _id={postId} />}
       
     </div>
