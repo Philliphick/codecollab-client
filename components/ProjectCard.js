@@ -15,6 +15,7 @@ export const ProjectCard = ({ post, selectedLanguages }) => {
   if (selectedLanguages.length > 0 && !selectedLanguages.some(lang => post.tags.includes(lang))) {
     return null;
   }
+  console.log(post)
 
   const handleButtonClick = () => {
     if (postId === post._id) {
