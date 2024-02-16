@@ -10,8 +10,8 @@ import Signup from "@/components/Signup";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 w-full h-full">
-      <div className="w-full h-full">
+    <main className="flex min-h-screen flex-row flex-wrap items-center justify-between p-24 w-full h-full">
+      <div className="flex-grow w-full h-full items-center justify-center">
         <a href="/api/auth/login">Login</a>
         <Dashboard />
       </div>
