@@ -14,7 +14,7 @@ const DeletePost = ({ _id }) => {
 
   return (
     <div 
-      className="bg-red-500 text-white font-bold py-2 px-4 rounded cursor-pointer"
+      className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 m-2 rounded opacity-70"
       onClick={deleteController}
     >
       <button>Delete</button>
