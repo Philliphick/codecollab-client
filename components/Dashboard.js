@@ -105,17 +105,21 @@ export const Dashboard = () => {
     : posts;
 
     return (
-      <div className="flex flex-col">
+      <div className="flex">
+        <div className="fixed right-4 top-2 h-full z-10">
+          <button className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80">Add Project</button>
+          <a href="/api/auth/login" className='bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>Login</a>
+        </div>
         <div className="fixed left-0 top-0 h-full">
           <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
         </div>
-        <div className="ml-28">
+        <div className="ml-28 flex flex-col items-center">
           <div className="flex flex-wrap gap-10">
             {filteredPosts.map(post => (
               <ProjectCard key={post.id} post={post} selectedLanguages={selectedLanguages} />
             ))}
           </div>
-          <div className="mt-12 w-3/4 flex justify-center">
+          <div className="mt-12 w-5/6 flex justify-center">
             <MakePost />
           </div>
         </div>
