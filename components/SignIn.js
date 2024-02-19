@@ -1,9 +1,45 @@
 import React from 'react'
 import { useState } from 'react'
 import Signup from './Signup'
+import axios from 'axios';
 
 const SignIn = () => {
     const [showSignUp, setShowSignUp] = useState(false);
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+
+    
+
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+          const response = await axios.post('http://localhost:5001/auth/login', { email, password });
+          console.log(response.data); // Handle response from server
+        } catch (error) {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            if (error.response.status === 401) {
+              console.error('Login failed: Unauthorized - Invalid credentials');
+              // Display a message to the user indicating invalid credentials
+            } else if (error.response.status === 500) {
+              console.error('Login failed: Internal Server Error');
+              // Display a message to the user indicating a server error
+            } else {
+              console.error(`Login failed: ${error.response.status} - ${error.response.data.message}`);
+              // Handle other specific status codes and display relevant messages
+            }
+          } else if (error.request) {
+            // The request was made but no response was received
+            console.error('Login failed: No response from server');
+            // Display a generic error message indicating a network issue
+          } else {
+            // Something happened in setting up the request that triggered an error
+            console.error('Login failed:', error.message);
+            // Display a generic error message indicating an unexpected error
+          }
+        }
+      };
 
 
   return (
@@ -16,11 +52,11 @@ const SignIn = () => {
   </div>
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form class="space-y-6" action="#" method="POST">
+    <form onSubmit={handleLogin} class="space-y-6">
       <div>
         <label for="email" class="block text-sm font-medium leading-6 text-gray-300">Email address</label>
         <div class="mt-2">
-          <input id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+          <input onChange={(e) => setEmail(e.target.value)} value={email} id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
         </div>
       </div>
 
@@ -32,12 +68,12 @@ const SignIn = () => {
           </div>
         </div>
         <div class="mt-2">
-          <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+          <input onChange={(e) => setPassword(e.target.value)} id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
         </div>
       </div>
 
       <div>
-        <button type="submit" class="flex w-full justify-center rounded-md bg-cyan-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+        <button href="auth/login" type="submit" class="flex w-full justify-center rounded-md bg-cyan-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
       </div>
     </form>
 

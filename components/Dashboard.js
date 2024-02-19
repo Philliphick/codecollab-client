@@ -93,15 +93,7 @@ export const Dashboard = () => {
     fetchPosts();
   }, []);
 
-  useEffect(() => {
-  axios.get('http://localhost:5001/api/private-route', {withCredentials: true})
-  .then(res => {
-    console.log(res.data)
-  })
-  .catch(error => {
-    console.error('Error fetching projects:', error);
-  })
-})
+  
 
   const filteredPosts = selectedLanguages.length > 0 
     ? posts.filter(post => selectedLanguages.some(lang => post.tags.includes(lang)))
