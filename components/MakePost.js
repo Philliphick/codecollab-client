@@ -32,13 +32,13 @@ export const MakePost = () => {
   };
 
   return (
-    <div className="w-full p-4 bg-gray-200 shadow-2xl rounded mx-auto">
+    <div className="w-full p-4 bg-gradient-to-br from-gray-700 via-cyan-900 via-40% to-gray-900 to-90% text-white shadow-2xl rounded mx-auto">
       <h1 className="text-center text-3xl font-bold mb-4">Create a Project</h1>
       {submitted && <div className="text-green-500 mb-4">Your project has been submitted!</div>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="flex flex-col">
           <label htmlFor="name" className="font-bold mb-1">Project Name</label>
-          <input type="text" name="name" id="name" className="p-2 border rounded" onChange={handleChange} />
+          <input type="text" name="name" id="name" className="appearance-textfield p-2 border rounded" onChange={handleChange} />
         </div>
         <div className="flex flex-col">
           <label htmlFor="description" className="font-bold mb-1">Description</label>

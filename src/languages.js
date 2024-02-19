@@ -1,11 +1,14 @@
 export const languages = [
-    {name: 'Python', image: '/images/python.png'},
-    {name: 'CSharp', image: '/images/C_Sharp.png'},
-    {name: 'CPlusPlus', image: '/images/C++.svg'},
-    {name: 'Java', image: '/images/Java.svg'},
-    {name: 'JavaScript', image: '/images/JavaScript.png'},
-    {name: 'PHP', image: '/images/PHP.svg'},
-    {name: 'Ruby', image: '/images/Ruby.png'},
-    {name: 'Swift', image: '/images/Swift.svg'},
-    {name: 'Other', image: '/images/other.jpg'}
+    {name: 'Python', image: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-plain.svg'},
+    {name: 'C', image: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg'},
+    {name: 'CSharp', image: 
+    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg'},
+    {name: 'CPlusPlus', image: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg'},
+    {name: 'Java', image: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg'},
+    {name: 'JavaScript', image: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg'},
+    {name: 'PHP', image: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg'},
+    {name: 'Ruby', image: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ruby/ruby-original.svg'},
+    {name: 'Swift', image: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swift/swift-original.svg'},
+    {name: 'Rust', image: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg'},
+    
 ];
