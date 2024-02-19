@@ -5,6 +5,7 @@ import ProjectCard from './ProjectCard';
 import Sidebar from './Sidebar';
 import MakePost from './MakePost'
 import Link from 'next/link';
+import SignIn from './SignIn';
 
 
 
@@ -75,6 +76,8 @@ import Link from 'next/link';
 export const Dashboard = () => {
   const [posts, setPosts] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
+  const [showSignIn, setShowSignIn] = useState(false);
+  
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -105,6 +108,9 @@ export const Dashboard = () => {
     : posts;
 
     return (
+     <>
+      {!showSignIn ? (
+
       <div className="flex">
         <div className="fixed right-4 top-2 h-full z-10">
           <button className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80">Add Project</button>
@@ -123,8 +129,22 @@ export const Dashboard = () => {
             <MakePost />
           </div>
         </div>
-      </div>
-    );
+      
+      <div className="fixed right-4 top-2 h-full z-10">
+            <button className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80">Add Project</button>
+            <button onClick={() => setShowSignIn(true)} className='bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>Login</button>
+          </div>
+
+          </div>
+          
+          
+      ) : (
+        <SignIn />
+      )}
+      </>
+      
+      );
+    
   // return (
   //   <div className="flex space-x-4">
   //     <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
