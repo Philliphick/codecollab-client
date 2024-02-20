@@ -6,6 +6,7 @@ import FullPost from "@/components/FullPost";
 import MakePost from "@/components/MakePost";
 import ProjectCard from "@/components/ProjectCard";
 import Signup from "@/components/Signup";
+
 //bg-gradient-to-br from-gray-700 from-0% via-emerald-500 via-25% via-emerald-500 via-50% to-cyan-900 to-90% 
 
 // secondary colour: [#7A2410]?
