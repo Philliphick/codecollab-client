@@ -5,7 +5,7 @@ import axios from 'axios'
 const DeletePost = ({ _id }) => {
   const deleteController = async () => {
     try {
-      await axios.delete(`http://localhost:5001/delete/${_id}`)
+      await axios.delete(`http://localhost:5001/delete/${_id}`, { withCredentials: true })
       // Refresh the page or do something else after the post is deleted
     } catch (err) {
       console.error(err)
