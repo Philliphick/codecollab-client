@@ -6,6 +6,8 @@ import Sidebar from './Sidebar';
 import MakePost from './MakePost'
 import Link from 'next/link';
 import SignIn from './SignIn';
+import MakeProfile from './EditProfile'
+import ProfileCard from './ProfileCard';
 
 
 
@@ -101,6 +103,13 @@ export const Dashboard = () => {
 
     return (
      <>
+      <div className="mt-12 w-1/2 flex justify-center">
+      <MakeProfile />
+          </div>
+          <div className="mt-12 w-1/2 flex justify-center">
+      <ProfileCard />
+          </div>
+
       {!showSignIn ? (
 
       <div className="flex">
