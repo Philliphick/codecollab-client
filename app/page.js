@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Dashboard from "@/components/Dashboard";
-import Login from   "@/components/Login";
-import Comments from "@/components/Comments";
-import FullPost from "@/components/FullPost";
-import MakePost from "@/components/MakePost";
-import ProjectCard from "@/components/ProjectCard";
-import Signup from "@/components/Signup";
+import Dashboard from "@/components/MainComponents/Dashboard";
+import Login from   "@/components/MainComponents/Login";
+import Comments from "@/components/ProjectComponents/Comments";
+import FullPost from "@/components/ProjectComponents/FullPost";
+import MakePost from "@/components/MainComponents/MakePost";
+import ProjectCard from "@/components/ProjectComponents/ProjectCard";
+import Signup from "@/components/MainComponents/Signup";
 
 //bg-gradient-to-br from-gray-700 from-0% via-emerald-500 via-25% via-emerald-500 via-50% to-cyan-900 to-90% 
 

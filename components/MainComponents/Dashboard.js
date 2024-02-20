@@ -1,13 +1,13 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ProjectCard from './ProjectCard';
+import ProjectCard from '../ProjectComponents/ProjectCard';
 import Sidebar from './Sidebar';
 import MakePost from './MakePost'
 import Link from 'next/link';
 import SignIn from './SignIn';
-import MakeProfile from './EditProfile'
-import ProfileCard from './ProfileCard';
+import MakeProfile from '../UserComponents/EditProfile'
+import ProfileCard from '../UserComponents/ProfileCard';
 
 
 

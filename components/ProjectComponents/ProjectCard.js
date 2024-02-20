@@ -58,7 +58,7 @@
 import React, { useState } from 'react';
 import FullPost from './FullPost';
 import DeletePost from './DeleteButton';
-import MakePost from './MakePost';
+import MakePost from '../MainComponents/MakePost';
 
 const ProjectCard = ({ post, selectedLanguages }) => {
   const [postId, setPostId] = useState(null);

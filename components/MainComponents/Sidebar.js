@@ -1,5 +1,5 @@
 import React from 'react';
-import {languages} from '../src/languages';
+import {languages} from '../../src/languages';
 import Image from 'next/image';
 
 function Sidebar({ selectedLanguages, setSelectedLanguages }) {

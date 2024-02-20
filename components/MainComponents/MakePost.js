@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import axios from 'axios';
-import { languages } from '../src/languages';
+import { languages } from '../../src/languages';
 import Image from 'next/image';
 
 export const MakePost = () => {
