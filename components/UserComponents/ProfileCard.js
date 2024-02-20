@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { profileImage } from '../src/genericProfileImage'; 
+import { profileImage } from '../../src/genericProfileImage'; 
 
 function ProfileCard() {
   const profile = {
