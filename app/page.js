@@ -5,7 +5,7 @@ import Comments from "@/components/ProjectComponents/Comments";
 import FullPost from "@/components/ProjectComponents/FullPost";
 import MakePost from "@/components/MainComponents/MakePost";
 import ProjectCard from "@/components/ProjectComponents/ProjectCard";
-import Signup from "@/components/MainComponents/Signup";
+import Signup from "@/app/pages/registration/Signup";
 
 //bg-gradient-to-br from-gray-700 from-0% via-emerald-500 via-25% via-emerald-500 via-50% to-cyan-900 to-90% 
 

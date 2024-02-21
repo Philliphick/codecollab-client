@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { languages } from '../../src/languages';
 import Image from 'next/image';
+import ApiClient from '@/utils/ApiClient';
+
+const apiClient = new ApiClient();
 
 export const MakePost = () => {
   const [formData, setFormData] = useState({ name: '', description: '', repoLink: '', tags: [], timeframe: '' });
@@ -23,13 +26,15 @@ export const MakePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5001/makePost', formData);
-      console.log(response.data);
+      const { name, description, repoLink, tags, timeframe } = formData;
+      const response = await apiClient.makePost({ name, description, repoLink, tags, timeframe });
+      console.log(response);
       setSubmitted(true);
     } catch (error) {
       console.error(error);
     }
   };
+
 
   return (
     <div className="w-full p-4 bg-gradient-to-br from-gray-700 via-cyan-900 via-40% to-gray-900 to-90% text-white shadow-2xl rounded mx-auto">

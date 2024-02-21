@@ -5,9 +5,10 @@ import ProjectCard from '../ProjectComponents/ProjectCard';
 import Sidebar from './Sidebar';
 import MakePost from './MakePost'
 import Link from 'next/link';
-import SignIn from './SignIn';
+import SignIn from '../../app/pages/login/SignIn';
 import MakeProfile from '../UserComponents/EditProfile'
 import ProfileCard from '../UserComponents/ProfileCard';
+
 
 
 
@@ -84,7 +85,7 @@ export const Dashboard = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/', {withCredentials: true});
+        const response = await axios.get('http://localhost:5001/project', {withCredentials: true});
         console.log(response.data.data)
         setPosts(response.data.data);
       } catch (error) {
@@ -95,6 +96,7 @@ export const Dashboard = () => {
     fetchPosts();
   }, []);
 
+  //
   
 
   const filteredPosts = selectedLanguages.length > 0 
