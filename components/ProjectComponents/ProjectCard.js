@@ -72,21 +72,21 @@ const ProjectCard = ({ post, selectedLanguages, user }) => {
 
   // where is this calling to? V
 
-  useEffect(() => {
-    const checkIsUsersPost = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5001/project/user/${user.id}`);
-        const usersPosts = response.data.posts;
-        setIsUsersPost(usersPosts.some(usersPost => usersPost._id === post._id));
-      } catch (error) {
-        console.error('Error fetching user\'s posts:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const checkIsUsersPost = async () => {
+  //     try {
+  //       const response = await axios.get(`http://localhost:5001/project/user/${user.id}`);
+  //       const usersPosts = response.data.posts;
+  //       setIsUsersPost(usersPosts.some(usersPost => usersPost._id === post._id));
+  //     } catch (error) {
+  //       console.error('Error fetching user\'s posts:', error);
+  //     }
+  //   };
 
-    if (user) {
-      checkIsUsersPost();
-    }
-  }, [user, post._id]);
+  //   if (user) {
+  //     checkIsUsersPost();
+  //   }
+  // }, [user, post._id]);
 
   
 
