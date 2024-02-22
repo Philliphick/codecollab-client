@@ -35,6 +35,9 @@ export const MakePost = () => {
     }
   };
 
+ 
+  
+
 
   return (
     <div className="w-full p-4 bg-gradient-to-br from-gray-700 via-cyan-900 via-40% to-gray-900 to-90% text-white shadow-2xl rounded mx-auto">

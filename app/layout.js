@@ -1,8 +1,9 @@
-import { Inter } from "next/font/google";
-// import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { Inter, Kanit } from "next/font/google";
+
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
+const kanit = Kanit({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata = {
   // title: "Create Next App",
@@ -12,9 +13,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      {/* <UserProvider> */}
-      <body className={inter.className}>{children}</body>
-      {/* </UserProvider> */}
+      
+      <body className={kanit.className}>{children}</body>
+      
     </html>
   );
 }

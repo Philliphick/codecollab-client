@@ -1,8 +1,11 @@
 'use client'
 import React, { useState } from 'react';
+import axios from 'axios';
 
-function MakeProfile() {
+
+function MakeProfile({user}) {
   const [profile, setProfile] = useState({
+
     name: '',
     email: '',
     githubLink: '',
@@ -11,6 +14,7 @@ function MakeProfile() {
     location: '',
     photo: null
   });
+
 
   const handleChange = (event) => {
     if (event.target.name === 'photo') {
@@ -28,6 +32,7 @@ function MakeProfile() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    
     console.log(profile);
     //AXIOS ROUTING
   };

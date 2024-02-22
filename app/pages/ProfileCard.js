@@ -1,16 +1,40 @@
+"use client"
 import React from 'react';
 import Image from 'next/image';
 import { profileImage } from '../../src/genericProfileImage'; 
+import Dashboard from '../../components/MainComponents/Dashboard';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function ProfileCard() {
+export const ProfileCard = ({ users }) => {
+  console.log(users)
+  const [user, setUser] = useState([]);
+
+
+  useEffect(() => { 
+    
+    const fetchUser = async () => {
+      
+      try {
+        console.log("Hello world from fetchuser")
+        const response = await axios.get(`http://localhost:5001/project/getprofile`, {withCredentials: true});
+        console.log(response)
+        setUser(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchUser()
+  }, [])
+  
   const profile = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    githubLink: 'https://github.com/johndoe',
-    slack: 'johndoe',
-    twitter: '@johndoe',
-    location: 'San Francisco, CA',
-    photo: profileImage.find(img => img.name === 'genericMale').image
+    
+    
+    name: user.name,
+    email: user.email,
+    username: user.username,
+    githubLink: user.githubLink,
+    
   };
 
   return (
