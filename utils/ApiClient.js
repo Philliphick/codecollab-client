@@ -61,6 +61,17 @@ export default class ApiClient {
       throw error;
     }
   }
+
+  async editProfile(formData) {
+    try {
+      const response = await this.client.patch(`${BASE_URL}/profile/edit`, formData, { withCredentials: true });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  
   
 
 

@@ -58,16 +58,19 @@
 import React, { useState, useEffect } from 'react';
 import FullPost from './FullPost';
 import DeletePost from './DeleteButton';
-import MakePost from '../MainComponents/MakePost';
+import MakePost from '../MainComponents/UpdatePost';
 import axios from 'axios';
 
 const ProjectCard = ({ post, selectedLanguages, user }) => {
   const [postId, setPostId] = useState(null);
   const [isUsersPost, setIsUsersPost] = useState(false);
 
+
   if (selectedLanguages.length > 0 && !selectedLanguages.some(lang => post.tags.includes(lang))) {
     return null;
   }
+
+  // where is this calling to? V
 
   useEffect(() => {
     const checkIsUsersPost = async () => {
@@ -84,6 +87,9 @@ const ProjectCard = ({ post, selectedLanguages, user }) => {
       checkIsUsersPost();
     }
   }, [user, post._id]);
+
+  
+
 
   const handleButtonClick = () => {
     if (postId === post._id) {
@@ -115,7 +121,8 @@ const ProjectCard = ({ post, selectedLanguages, user }) => {
       </div>
       
     </div>
-    {postId === post._id && <FullPost postId={post._id} onClose={() => setPostId(null)} />}
+    {postId === post._id && <FullPost postId={post._id} post={post} user={user} onClose={() => setPostId(null)} />}
+    
     </>
   );
 };

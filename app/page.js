@@ -3,7 +3,7 @@ import Dashboard from "@/components/MainComponents/Dashboard";
 import Login from   "@/components/MainComponents/Login";
 import Comments from "@/components/ProjectComponents/Comments";
 import FullPost from "@/components/ProjectComponents/FullPost";
-import MakePost from "@/components/MainComponents/MakePost";
+import MakePost from "@/components/MainComponents/UpdatePost";
 import ProjectCard from "@/components/ProjectComponents/ProjectCard";
 import Signup from "@/app/pages/registration/Signup";
 

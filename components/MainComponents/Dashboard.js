@@ -3,11 +3,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProjectCard from '../ProjectComponents/ProjectCard';
 import Sidebar from './Sidebar';
-import MakePost from './MakePost'
+import MakePost from './UpdatePost'
 import Link from 'next/link';
 import SignIn from '../../app/pages/login/SignIn';
 import MakeProfile from '../UserComponents/EditProfile'
-import ProfileCard from '../UserComponents/ProfileCard';
+import ProfileCard from '../../app/pages/ProfileCard';
+import Signup from '@/app/pages/registration/Signup';
+
+
 
 
 
@@ -80,6 +83,9 @@ export const Dashboard = () => {
   const [posts, setPosts] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [showSignIn, setShowSignIn] = useState(false);
+  const [allUsers, setAllUsers] = useState([]);
+  const [user, setUser] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
   
 
   useEffect(() => {
@@ -96,7 +102,46 @@ export const Dashboard = () => {
     fetchPosts();
   }, []);
 
-  //
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      try {
+        const response = await axios.get('http://localhost:5001/project/allusers', {withCredentials: true});
+        setAllUsers(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchAllUsers()
+    
+  }, [])
+  console.log("From fetchAlUser:", allUsers)
+
+  useEffect(() => { 
+    
+    const fetchUser = async () => {
+      
+      try {
+        console.log("Hello world from fetchuser")
+        const response = await axios.get(`http://localhost:5001/project/getprofile`, {withCredentials: true});
+        
+        setUser(response.data.data);
+
+        if (user) {
+          setLoggedIn(true)
+        } else {
+          setLoggedIn(false)
+        }
+        
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchUser()
+    
+  }, [])
+
+  console.log("from fetchUser:", user)
+  console.log("logged in:", loggedIn) 
   
 
   const filteredPosts = selectedLanguages.length > 0 
@@ -105,44 +150,44 @@ export const Dashboard = () => {
 
     return (
      <>
-      <div className="mt-12 w-1/2 flex justify-center">
-      <MakeProfile />
-          </div>
-          <div className="mt-12 w-1/2 flex justify-center">
-      <ProfileCard />
-          </div>
-
-      {!showSignIn ? (
-
-      <div className="flex">
-        <div className="fixed right-4 top-2 h-full z-10">
-          <button className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80">Add Project</button>
-          <a href="/api/auth/login" className='bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>Login</a>
-        </div>
-        <div className="fixed left-0 top-0 h-full">
-          <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
-        </div>
-        <div className="ml-28 flex flex-col items-center">
-          <div className="flex flex-wrap gap-10">
-            {filteredPosts.map(post => (
-              <ProjectCard key={post.id} post={post} selectedLanguages={selectedLanguages} />
-            ))}
-          </div>
-          <div className="mt-12 w-5/6 flex justify-center">
-            <MakePost />
-          </div>
-        </div>
       
-      <div className="fixed right-4 top-2 h-full z-10">
-            <button className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80">Add Project</button>
-            <button onClick={() => setShowSignIn(true)} className='bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>Login</button>
-          </div>
 
-          </div>
+      {loggedIn ? (
+        <><div className="mt-12 w-1/2 flex justify-center">
+            <MakeProfile user={user}/>
+          </div><div className="mt-12 w-1/2 flex justify-center">
+              {/* <ProfileCard user={user} /> */}
+              
+            </div><div className="flex">
+              <div className="fixed right-4 top-2 h-full z-10">
+                <button className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80">Add Project</button>
+                <a href="" className='bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>Login</a>
+              </div>
+              <div className="fixed left-0 top-0 h-full">
+                <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
+              </div>
+              <div className="ml-28 flex flex-col items-center">
+                <div className="flex flex-wrap gap-10">
+                  {filteredPosts.map(post => (
+                    <ProjectCard key={post.id} post={post} user={user} selectedLanguages={selectedLanguages} />
+                  ))}
+                </div>
+                
+                <div className="mt-12 w-5/6 flex justify-center">
+                  <MakePost />
+                </div>
+              </div>
+
+              <div className="fixed right-4 top-2 h-full z-10">
+                <button className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80">Add Project</button>
+                <button onClick={() => setShowSignIn(true)} className='bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>Login</button>
+              </div>
+
+            </div></>
           
           
       ) : (
-        <SignIn />
+        <><SignIn /></>
       )}
       </>
       
