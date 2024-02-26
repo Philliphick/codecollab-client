@@ -153,10 +153,11 @@ const FullPost = ({ postId, onClose, user, post }) => {
   <div className="bg-gray-800 rounded-md p-12 text-center text-white ring-2 ring-orange-700 flex flex-col justify-between items-center">
     <button className="absolute text-2xl top-2 right-2 text-orange-500" onClick={onClose}>X</button>
     <h1 className="text-2xl mb-4">{currentPost.name}</h1>
+    <h2 className="text-xl mb-4">{currentPost.subheading}</h2>
     <hr className='mb-4 w-1/2 mx-auto text-orange-500'></hr>
     <div className="mb-6 font-bold mx-10 leading-loose">{currentPost.description}</div>
     <div className="mb-4 flex flex-row gap-4">
-    <div className="mb-4">Expected timeframe: {currentPost.timeframe}</div>
+    {/* <div className="mb-4">Expected timeframe: {currentPost.timeframe}</div> */}
     <div className="mb-4">Tags: {currentPost.tags}</div>
     <div className="mb-4">Repo Link: {currentPost.repoLink}</div>
     </div>

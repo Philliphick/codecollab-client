@@ -103,6 +103,7 @@ const ProjectCard = ({ post, selectedLanguages, user }) => {
     <>
     <div className="p-4 ring-1 ring-orange-700 ring-opacity-50 shadow-xl rounded-md max-w-xs mx-auto hover:scale-110 hover:shadow-2xl hover:bg-gray-900 hover:ring-orange-500 transition duration-300 ease-in-out">
       <h2 className="text-xl text-gray-300 font-bold mb-1 p-2 text-center">{post.name}</h2>
+      <h2 className="text-xl text-gray-300 font-bold mb-1 p-2 text-center">{post.subheading}</h2>
       <p className="text-gray-400 mb-2">{post.description}</p>
       <a href={post.repoLink} className="text-[#7A2410] mb-2 block">GitHub</a>
       <div className="mb-2 ml-2">

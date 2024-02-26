@@ -218,6 +218,7 @@ export const Dashboard = () => {
                       {currentUserPosts.map(post => (
                         <div key={post.id}>
                           <h3>{post.title}</h3>
+                          <h2>{post.subheading}</h2>
                           <p>{post.description}</p>
                           {/* Render other post details */}
                         </div>
