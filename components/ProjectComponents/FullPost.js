@@ -150,15 +150,18 @@ const FullPost = ({ postId, onClose, user, post }) => {
     <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2/3 h-2/3 z-50">
   <div className="bg-gray-800 rounded-md p-12 text-center text-white ring-2 ring-orange-700 flex flex-col justify-between items-center">
     <button className="absolute text-2xl top-2 right-2 text-orange-500" onClick={onClose}>X</button>
-    <h1 className="text-2xl font-bold mb-4">{currentPost.name}</h1>
+
+    <h1 className="text-2xl mb-4">{currentPost.name}</h1>
+    <h2 className="text-xl mb-4">{currentPost.subheading}</h2>
+
     <hr className='mb-4 w-1/2 mx-auto text-orange-500'></hr>
     <div className="mb-6 text-2xl  mx-16 leading-loose">{currentPost.description}</div>
     <div className="mb-4 flex flex-row gap-4">
-    
-    {currentPost.tags.map((tag, index) => (
-      <div className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 my-2 mr-2" key={index}>{tag}</div>
-    ))}
-    
+
+    {/* <div className="mb-4">Expected timeframe: {currentPost.timeframe}</div> */}
+    <div className="mb-4">Tags: {currentPost.tags}</div>
+    <div className="mb-4">Repo Link: {currentPost.repoLink}</div>
+
     </div>
     <a href={currentPost.repoLink} target='_blank'><img src="https://github.com/fluidicon.png" alt="GitHub logo" className="w-12 h-12 m-2"></img></a>
     {/* <div className="mb-4">Repo Link: {currentPost.repoLink}</div> */}

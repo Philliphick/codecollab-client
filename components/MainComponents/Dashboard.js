@@ -198,25 +198,45 @@ export const Dashboard = () => {
 
         </div><div className="mt-8 w-1/2 flex justify-center">
             {/* <ProfileCard user={user} /> */}
-          
 
-            </div><div className="flex">
-              <div className="fixed right-4 top-2 h-full z-10">
-                <button className="bg-orange-700 hover:bg-cyan-700 transition duration-300 ease-in-out text-white font-bold py-2 px-4 m-2 rounded opacity-80">ADD PROJECT</button>
-                <button onClick={handleUserPostsClick} className='bg-orange-700 hover:bg-cyan-700 transition duration-300 ease-in-out text-white font-bold py-2 px-4 m-2 rounded opacity-80'>YOUR PROJECTS</button>
-                <button onClick={handleProfileClick} onClose={handleCloseProfile} className='bg-orange-700 hover:bg-cyan-700 transition duration-300 ease-in-out text-white font-bold py-2 px-4 m-2 rounded opacity-80'>PROFILE</button>
 
-                {showCurrentUserPosts && (
-                  <div className='fixed left-0 top-0 h-full w-full bg-black bg-opacity-60 flex flex-col  justify-center items-center'>
-                    <h1 className="text-5xl mb-12 font-bold mb-4 text-orange-600 text-left  p-2 border-b-2 border-orange-600 ">YOUR POSTS</h1>
-                    <div className='bg-gradient-to-br from-gray-700 via-cyan-900 via-40% to-gray-900 to-90% p-4'>
-                    <button className="text-orange-600 text-2xl absolute top-1/3 right-1/3 ring-1 ring-orange-700 px-2" onClick={handleCloseProfile}>X</button>
-                      {currentUserPosts.length > 0 ? (
-                        <div className=''>
-                          
-                          {currentUserPosts.map(post => (
-                            <ProjectCard key={post.id} post={post} user={user} selectedLanguages={selectedLanguages} />
-                          ))}
+          </div><div className="flex">
+            <div className="fixed right-4 top-2 h-full z-10">
+              <button className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80">Add Project</button>
+              <button onClick={handleProfileClick} onClose={handleCloseProfile} className='bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>Profile</button>
+              {showUserProfile && (
+                <>
+                  <ProfileCard user={user} />
+
+                </>
+              )}
+            </div>
+            <div className="fixed left-0 top-0 h-full">
+              <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
+            </div>
+            <div className="ml-28 flex flex-col items-center">
+              <div className="flex flex-wrap gap-10">
+                {filteredPosts.map(post => (
+                  <ProjectCard key={post.id} post={post} user={user} selectedLanguages={selectedLanguages} />
+                ))}
+              </div>
+
+              <div className="mt-12 w-5/6 flex justify-center">
+                <MakePost />
+              </div>
+              <button onClick={handleUserPostsClick} className='bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>User Posts</button>
+              {showCurrentUserPosts && (
+                <div className='fixed left-0 top-0 h-full w-full bg-black bg-opacity-50 flex justify-center items-center text-white'>
+                  <div className='bg-white p-4'>
+                  {currentUserPosts.length > 0 ? (
+                    <div>
+                      {currentUserPosts.map(post => (
+                        <div key={post.id}>
+                          <h3>{post.title}</h3>
+                          <h2>{post.subheading}</h2>
+                          <p>{post.description}</p>
+                          {/* Render other post details */}
+
                         </div>
                       ) : (
                         <h3 className='bg-gradient-to-br ring ring-orange-700 ring-1 from-gray-700 via-cyan-900 via-40% to-gray-900 to-90% p-6 text-5xl text-center text-xl font-bold text-orange-600'>NO POSTS CURRENTLY</h3>
