@@ -1,8 +1,9 @@
 "use client"
 import React, { useState } from 'react';
-// import { useRouter } from 'next/navigation';
-import ApiClient from '../../../utils/ApiClient';
-import Signup from '../registration/Signup';
+import { useRouter } from 'next/navigation';
+import ApiClient from '../../utils/ApiClient';
+import Signup from '../registration/page';
+import Link from 'next/link';
 
 const SignIn = () => {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -10,14 +11,15 @@ const SignIn = () => {
   const [username, setUsername] = useState('');
   const apiClient = new ApiClient();
   
-
+  const router = useRouter();
   const handleLogin = async (e) => {
-    // const router = useRouter();
+    
+    console.log("hello from handleLogin")
     e.preventDefault();
     try {
       const response = await apiClient.login(username, password);
       console.log(response);
-      // router.push('/');
+      router.push('/');
 
       
       // Handle response from server
@@ -66,7 +68,7 @@ const SignIn = () => {
 
             <p className="mt-10 text-center text-lg text-gray-300">
               Not a member?
-              <a onClick={() => setShowSignUp(true)} href="#" className="font-semibold leacyan-6 hover:text-indigo-500"> Sign Up</a>
+             <Link href="/registration" onClick={() => setShowSignUp(true)} className="font-semibold leacyan-6 hover:text-indigo-500"> Sign Up</Link>
             </p>
           </div>
         </div>

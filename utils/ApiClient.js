@@ -15,6 +15,7 @@ export default class ApiClient {
   async login(username, password) {
     try {
       const response = await this.client.post(`${BASE_URL}/auth/login`, { username, password }, { withCredentials: true });
+      console.log("this is response.data", response.data);
       return response.data;
     } catch (error) {
       throw error;
@@ -23,9 +24,10 @@ export default class ApiClient {
 
   async register(username, email, password) {
     try {
-      console.log({ username, email, password });
-      const response = await this.client.post(`${BASE_URL}/auth/register`, { username, email, password }, { withCredentials: true });
+      console.log("this is username, email, password", username, email, password);
+      const response = await this.client.post(`${BASE_URL}/auth/registration`, { username, email, password }, { withCredentials: true });
       return response.data;
+      console.log("this is response.data", response.data);
     } catch (error) {
       throw error;
     }

@@ -1,7 +1,8 @@
 "use client"
 import React, { useState } from 'react';
-import ApiClient from '../../../utils/ApiClient';
+import ApiClient from '../../utils/ApiClient';
 import { useRouter } from 'next/navigation';
+
 const Signup = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -14,7 +15,7 @@ const Signup = () => {
     
     e.preventDefault();
     try {
-      
+      console.log("trying to Sign up")
       const response = await apiClient.register(username, email, password);
       console.log(response);
       // Display a success message to the user

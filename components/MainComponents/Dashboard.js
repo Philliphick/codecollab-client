@@ -5,10 +5,10 @@ import ProjectCard from '../ProjectComponents/ProjectCard';
 import Sidebar from './Sidebar';
 import MakePost from './UpdatePost'
 import Link from 'next/link';
-import SignIn from '../../app/pages/login/SignIn';
+import SignIn from '../../app/login/page';
 import MakeProfile from '../UserComponents/MakeProfile'
 import ProfileCard from '../../app/pages/ProfileCard';
-import Signup from '@/app/pages/registration/Signup';
+import Signup from '@/app/registration/page';
 
 export const Dashboard = () => {
   const [posts, setPosts] = useState([]);
@@ -89,13 +89,13 @@ export const Dashboard = () => {
   return (
     <>
       {loggedIn ? (
-        <><div className="mt-12 w-1/2 flex justify-center">
-        </div><div className="mt-12 w-1/2 flex justify-center">
+        <><div className=" flex justify-center">
+        </div><div className="mt-8 w-1/2 flex justify-center">
             {/* <ProfileCard user={user} /> */}
           </div><div className="flex">
             <div className="fixed right-4 top-2 h-full z-10">
-              <button className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80">Add Project</button>
-              <button onClick={handleProfileClick} onClose={handleCloseProfile} className='bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>Profile</button>
+              <button className="bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-80">Add Project</button>
+              <button onClick={handleProfileClick} onClose={handleCloseProfile} className='bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>Profile</button>
               {showUserProfile && (
                 <>
                   <ProfileCard user={user} />
@@ -105,7 +105,8 @@ export const Dashboard = () => {
             <div className="fixed left-0 top-0 h-full">
               <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
             </div>
-            <div className="ml-28 flex flex-col items-center">
+            <div className="ml-20 flex flex-col items-center">
+              <h1 className="text-5xl text-orange-700 font-bold mb-10">Current Projects</h1>
               <div className="flex flex-wrap gap-10">
                 {filteredPosts.map(post => (
                   <ProjectCard key={post.id} post={post} user={user} selectedLanguages={selectedLanguages} />
@@ -137,7 +138,7 @@ export const Dashboard = () => {
             </div>
           </div></>
       ) : (
-        <><SignIn /></>
+        null
       )}
     </>
   );
