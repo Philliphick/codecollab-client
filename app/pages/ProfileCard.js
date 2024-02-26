@@ -40,27 +40,27 @@ export const ProfileCard = ({ users }) => {
     email: user.email,
     username: user.username,
     githubLink: user.githubLink,
+    telegram: user.telegramUsername,
     
   };
 
   return (
-    <div className="w-full p-4 bg-gradient-to-br from-gray-700 via-cyan-900 via-40% to-gray-900 to-90% text-white shadow-2xl rounded mx-auto">
+    <div className="w-full leading-loose p-4 bg-gradient-to-br from-gray-700 via-cyan-900 via-40% to-gray-900 to-90% text-white shadow-2xl rounded mx-auto">
       
       <div className="space-y-4">
         <div className="flex items-center space-x-4">
-          <Image src={profile.photo} alt={profile.name} width={100} height={100} className="rounded-full" />
+          <h2 className='flex text-xl text-orange-500 font-italic '>@{profile.username}</h2>
           <div>
             <h2 className="text-xl font-bold">{profile.name}</h2>
             <p>{profile.location}</p>
           </div>
         </div>
-        <div>
-          <p><span className="font-bold">Email:</span> {profile.email}</p>
-          <p><span className="font-bold">GitHub:</span> <a href={profile.githubLink} className="text-blue-500 hover:underline">{profile.githubLink}</a></p>
-          {user.slack && <p><span className="font-bold">Slack:</span> {user.slack}</p>}
-          <p><span className="font-bold">Slack:</span> {profile.slack}</p>
-          <p><span className="font-bold">Twitter:</span> {profile.twitter}</p>
-          {/* <button className="text-white font-italic bg-orange-500 font-bold py-2 px-4 rounded" onClick={handleUpdateButton}>Edit</button> */}
+        <div className='flex flex-col mx-4'>
+          {profile?.githubLink && <p className=''><span className="font-bold">GitHub:</span> <a href={profile.githubLink} className="text-blue-400 hover:underline">{profile.githubLink}</a></p>}
+      
+          {profile?.telegram && <p className='mb-2'><span className="font-bold">Telegram:</span> <a href={`https://t.me/${profile.telegram}`} target='_blank' className="text-blue-400 hover:underline">{profile.telegram}</a></p>}
+          
+          <button className="text-white  font-italic bg-orange-500 w-fit font-bold px-2 rounded" onClick={handleUpdateButton}>Update</button>
         {showUpdate && (
           <div className='relative'>
             <MakeProfile user={user} />

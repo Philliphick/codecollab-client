@@ -32,28 +32,30 @@ const SignIn = () => {
       {!showSignUp ? (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img className="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company"/>
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-300">Sign in to collaborate</h2>
+            {/* <img className="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company"/> */}
+            <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-300">Sign in to collaborate</h2>
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form onSubmit={handleLogin} className="space-y-6">
               <div>
-                <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-300">Username</label>
+                <label htmlFor="username" className="block font-medium leading-6 text-gray-300">Username</label>
                 <div className="mt-2">
+
                   <input onChange={(e) => setUsername(e.target.value)} value={username} id="username" name="username" type="text" autoComplete="username" required className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+
                 </div>
               </div>
 
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-300">Password</label>
-                  <div className="text-sm">
-                    <a href="#" className="font-semibold text-cyan-600 hover:text-cyan-500">Forgot password?</a>
-                  </div>
+                  <label htmlFor="password" className="block font-medium leading-6 text-gray-300">Password</label>
+                  
                 </div>
                 <div className="mt-2">
+
                   <input onChange={(e) => setPassword(e.target.value)} id="password" name="password" type="password" autoComplete="current-password" required className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+
                 </div>
               </div>
 
@@ -62,7 +64,7 @@ const SignIn = () => {
               </div>
             </form>
 
-            <p className="mt-10 text-center text-sm text-gray-500">
+            <p className="mt-10 text-center text-lg text-gray-300">
               Not a member?
               <a onClick={() => setShowSignUp(true)} href="#" className="font-semibold leacyan-6 hover:text-indigo-500"> Sign Up</a>
             </p>
