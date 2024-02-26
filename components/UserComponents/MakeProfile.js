@@ -9,7 +9,7 @@ function MakeProfile({user}) {
     name: '',
     email: '',
     githubLink: '',
-    slack: '',
+    telegram: '',
     twitter: '',
     location: '',
     photo: null
@@ -54,7 +54,7 @@ function MakeProfile({user}) {
           <input type="text" name="githubLink" id="githubLink" className="p-2 border rounded" value={profile.githubLink} onChange={handleChange} />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="slack" className="font-bold mb-1">Slack</label>
+          <label htmlFor="slack" className="font-bold mb-1">Telegram Username</label>
           <input type="text" name="slack" id="slack" className="p-2 border rounded" value={profile.slack} onChange={handleChange} />
         </div>
         <div className="flex flex-col">

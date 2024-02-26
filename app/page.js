@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Dashboard from "@/components/MainComponents/Dashboard";
-import Comments from "@/components/ProjectComponents/Comments";
 import FullPost from "@/components/ProjectComponents/FullPost";
 import MakePost from "@/components/MainComponents/UpdatePost";
 import ProjectCard from "@/components/ProjectComponents/ProjectCard";

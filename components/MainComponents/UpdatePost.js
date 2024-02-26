@@ -40,8 +40,8 @@ export const MakePost = () => {
 
 
   return (
-    <div className="w-full p-4 bg-gradient-to-br from-gray-700 via-cyan-900 via-40% to-gray-900 to-90% text-white shadow-2xl rounded mx-auto">
-      <h1 className="text-center text-3xl font-bold mb-4">Create a Project</h1>
+    <div className="w-full p-4 ring-1 ring-orange-700 bg-gradient-to-br from-gray-700 via-cyan-900 via-40% to-gray-900 to-90% text-white shadow-2xl rounded mx-auto">
+      <h1 className="text-center text-3xl font-bold mb-4">CREATE A PROJECT</h1>
       {submitted && <div className="text-green-500 mb-4">Your project has been submitted!</div>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="flex flex-col">
