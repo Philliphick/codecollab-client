@@ -1,42 +1,47 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ProjectCard from '../ProjectComponents/ProjectCard';
 import Sidebar from './Sidebar';
-import MakePost from './UpdatePost'
+import MakePost from './CreatePost'
 import Link from 'next/link';
 import SignIn from '../../app/login/page';
 import MakeProfile from '../UserComponents/MakeProfile'
 import ProfileCard from '../../app/pages/ProfileCard';
 import Signup from '@/app/registration/page';
+import UserPosts from '../UserPosts';
+import DeletePost from '../ProjectComponents/DeleteButton';
 
-export const Dashboard = () => {
+export const Dashboard = ({ user }) => {
   const [posts, setPosts] = useState([]);
+  const [currentUserPosts, setCurrentUserPosts] = useState(null);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [allUsers, setAllUsers] = useState([]);
-  const [user, setUser] = useState({});
-  const [currentUserPosts, setCurrentUserPosts] = useState([]);
+  
+  
   const [showCurrentUserPosts, setShowCurrentUserPosts] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+
+  console.log("current User", user)
+  
+  const makePostRef = useRef(null);
+
+  const userId = user._id
+  console.log(userId)
+
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        console.log("Hello world from fetchuser")
-        const response = await axios.get(`http://localhost:5001/project/getprofile`, { withCredentials: true });
-        setUser(response.data.data);
-        if (user) {
-          setLoggedIn(true)
-        } else {
-          setLoggedIn(false)
-        }
-      } catch (error) {
-        console.error(error);
+    const setLogged = async () => {
+      if(user) {
+        setLoggedIn(true)
       }
     }
-    fetchUser()
-  }, [])
+    setLogged();
+  }, [user])
+
+
   useEffect(() => {
+    console.log(userId)
     const fetchPosts = async () => {
       try {
         const response = await axios.get('http://localhost:5001/project', { withCredentials: true });
@@ -49,15 +54,28 @@ export const Dashboard = () => {
     fetchPosts();
     const fetchCurrentUserPosts = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/project/auth/getProjectByUserId', { withCredentials: true });
+        console.log("userId", userId)
+        const response = await axios.get(`http://localhost:5001/project/getProjectByUserId/${userId}`, { withCredentials: true });
         console.log("fetchCurrentUserPosts:", response.data.data)
-        setCurrentUserPosts(response.data.data);
+        const currentPostArr = []
+        const length = response.data.data.length
+        for(let i = 0; i < length; i++) {
+          currentPostArr.push(response.data.data[i])
+          console.log("currentPostArr", currentPostArr)
+          setCurrentUserPosts(currentPostArr)
+          
+        }
+       
+        
+        console.log("currentUserPosts", currentUserPosts)
       } catch (error) {
         console.error(error);
       }
     };
     fetchCurrentUserPosts();
   }, [user]);
+
+  console.log(currentUserPosts)
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
@@ -83,6 +101,11 @@ export const Dashboard = () => {
   const handleUserPostsClick = () => {
     setShowCurrentUserPosts(!showCurrentUserPosts);
   }
+
+  const handleCloseUserPost = () => {
+    setShowCurrentUserPosts(false); // Set showUserProfile state to false to hide user profile
+  };
+  
   const filteredPosts = selectedLanguages.length > 0
     ? posts.filter(post => selectedLanguages.some(lang => post.tags.includes(lang)))
     : posts;
@@ -93,15 +116,40 @@ export const Dashboard = () => {
         </div><div className="mt-8 w-1/2 flex justify-center">
             {/* <ProfileCard user={user} /> */}
           </div><div className="flex">
-            <div className="fixed right-4 top-2 h-full z-10">
-              <button className="bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-80">Add Project</button>
-              <button onClick={handleProfileClick} onClose={handleCloseProfile} className='bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>Profile</button>
+            <div className="fixed right-6 top-2 h-full z-10">
+              <button onClick={() => makePostRef.current.scrollIntoView({ behavior: 'smooth' })} className="bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-90">Add Project</button>
+              <button onClick={handleProfileClick} onClose={handleCloseProfile} className='bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-90'>Profile</button>
+              <button onClick={handleUserPostsClick} onClose={handleCloseUserPost} className='bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-90'>Your Posts</button>
               {showUserProfile && (
                 <>
                   <ProfileCard user={user} />
                 </>
               )}
+              {showCurrentUserPosts && (
+                <div className=' h-fit w-full flex justify-center bg-gradient-to-br from-orange-900 to-gray-800 rounded-lg text-black'>
+                  <div className='flex flex-col my-4'>
+                  {currentUserPosts ? (
+                    <div>
+                      {currentUserPosts.map(post => (
+                       <div className="my-2 bg-gradient-to-r from-gray-900 to-gray-800 text-white p-4 ring-1 ring-orange-700 ring-opacity-50 shadow-xl rounded-md max-w-xs mx-auto  hover:shadow-2xl hover:bg-gray-900 hover:ring-orange-500 transition duration-300 ease-in-out">
+                       <h3 className="text-2xl text-gray-300 font-bold mb-1 p-2 text-center">{post.name}</h3>
+                       <p className='text-gray-400 mb-2 p-2 text-center text-lg'>{post.description}</p>
+                       <div className='flex flex-row gap-4 p-2 justify-center items-center'>
+                        
+                       <a href={post.repoLink}><img className='w-14 h-14 hover:scale-125' src='/github.png' alt="GitHub"></img></a>
+                       <DeletePost _id={post._id}/>
+                       </div>
+                     </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <h3 className='text-center text-xl font-bold text-black'>No posts found.</h3>
+                  )}
+                  </div>
+                </div>
+              )}
             </div>
+            
             <div className="fixed left-0 top-0 h-full">
               <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
             </div>
@@ -112,34 +160,25 @@ export const Dashboard = () => {
                   <ProjectCard key={post.id} post={post} user={user} selectedLanguages={selectedLanguages} />
                 ))}
               </div>
-              <div className="mt-12 w-5/6 flex justify-center">
-                <MakePost />
-              </div>
-              <button onClick={handleUserPostsClick} className='bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>User Posts</button>
-              {showCurrentUserPosts && (
-                <div className='fixed left-0 top-0 h-full w-full bg-black bg-opacity-50 flex justify-center items-center text-white'>
-                  <div className='bg-white p-4'>
-                  {currentUserPosts.length > 0 ? (
-                    <div>
-                      {currentUserPosts.map(post => (
-                        <div key={post.id}>
-                          <h3>{post.title}</h3>
-                          <p>{post.description}</p>
-                          {/* Render other post details */}
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <h3 className='text-center text-xl font-bold text-black'>No posts found.</h3>
-                  )}
-                  </div>
-                </div>
-              )}
+              
+              
+              {/* <Link href={{pathname: '/userposts', query: {userPosts: JSON.stringify(currentUserPosts)} }}>
+                User Posts
+              </Link> */}
+              
+                  
+             
+              
+              
             </div>
           </div></>
       ) : (
         null
       )}
+      <div className="mt-12 w-5/6 flex justify-center">
+                <MakePost ref={makePostRef}/>
+              </div>
+              
     </>
   );
   // return (
@@ -161,100 +200,3 @@ export const Dashboard = () => {
 };
 export default Dashboard;
 
-//   return (
-// <>
-
-
-//       {loggedIn ? (
-//         <><div className="w-1/2 flex justify-center">
-
-//         </div><div className="mt-8 w-1/2 flex justify-center">
-//             {/* <ProfileCard user={user} /> */}
-
-
-//           </div><div className="flex">
-//             <div className="fixed right-4 top-2 h-full z-10">
-//               <button className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80">Add Project</button>
-//               <button onClick={handleProfileClick} onClose={handleCloseProfile} className='bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>Profile</button>
-//               {/* {showUserProfile && (
-//                 <>
-//                   <ProfileCard user={user} />
-
-//                 </>
-//               )} */}
-//             </div>
-//             <div className="fixed left-0 top-0 h-full">
-//               <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
-//             </div>
-//             <div className="ml-28 flex flex-col items-center">
-//               <div className="flex flex-wrap gap-10">
-//                 {/* {filteredPosts.map(post => (
-//                   <ProjectCard key={post.id} post={post} user={user} selectedLanguages={selectedLanguages} />
-//                 ))} */}
-//               </div>
-
-//               <div className="mt-12 w-5/6 flex justify-center">
-//                 <MakePost />
-//               </div>
-//               <button onClick={handleUserPostsClick} className='bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 m-2 rounded opacity-80'>User Posts</button>
-//               {/* {showCurrentUserPosts && (
-//                 <div className='fixed left-0 top-0 h-full w-full bg-black bg-opacity-50 flex justify-center items-center text-white'>
-//                   <div className='bg-white p-4'>
-//                   {currentUserPosts.length > 0 ? (
-//                     <div>
-//                       {currentUserPosts.map(post => (
-//                         <div key={post.id}>
-//                           <h3>{post.title}</h3>
-//                           <h2>{post.subheading}</h2>
-//                           <p>{post.description}</p>
-//                           {/* Render other post details */}
-
-//                         </div>
-//                       ) : (
-//                         <h3 className='bg-gradient-to-br ring ring-orange-700 ring-1 from-gray-700 via-cyan-900 via-40% to-gray-900 to-90% p-6 text-5xl text-center text-xl font-bold text-orange-600'>NO POSTS CURRENTLY</h3>
-//                       )}
-//                     </div>
-//                   </div>
-//                 )} */}
-//                 {/* {showUserProfile && (
-//                   <>
-//                     <ProfileCard user={user} />
-
-//                   </>
-//                 )} */}
-//               </div>
-//               <div className="fixed left-0 top-0 h-full">
-//                 <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
-//               </div>
-//               <div className="ml-28 flex flex-col items-center">
-//                 <h1 className="text-5xl mb-12 font-bold mb-4 text-orange-700 text-left  p-2 border-b-2 border-t-2 border-orange-700">CURRENT PROJECTS</h1>
-//                 <div className="flex flex-wrap gap-10">
-//                   {/* {filteredPosts.map(post => (
-//                     <ProjectCard key={post.id} post={post} user={user} selectedLanguages={selectedLanguages} />
-//                   ))} */}
-//                 </div>
-
-//                 <div className="mt-12 w-5/6 flex justify-center">
-//                   <MakePost />
-//                 </div>
-                
-
-//               </div>
-
-
-//             </div></>
-            
-
-
-//             ) : (
-//             <>
-//               <SignIn />
-//             </>
-//             )}
-//           </>
-
-//   );
-
-// };
-
-// export default Dashboard;

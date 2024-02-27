@@ -3,8 +3,8 @@ import Image from "next/image";
 import Dashboard from "@/components/MainComponents/Dashboard";
 import LandingPage from "@/components/MainComponents/LandingPage";
 import axios from "axios";
-import FullPost from "@/components/ProjectComponents/FullPost";
-import MakePost from "@/components/MainComponents/UpdatePost";
+import { ShareableLinkGenerator as FullPost } from "@/components/ProjectComponents/FullPost";
+import MakePost from "@/components/MainComponents/CreatePost";
 import ProjectCard from "@/components/ProjectComponents/ProjectCard";
 
 import { useEffect, useState } from "react";
@@ -23,6 +23,8 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [loggedIn, setLoggedIn] = useState(false)
       const [user, setUser] = useState(null)
+      // const [currentUserPosts, setCurrentUserPosts] = useState([]);
+      // const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -30,7 +32,7 @@ export default function Home() {
       try {
         
         const response = await axios.get(`http://localhost:5001/project/getprofile`, { withCredentials: true });
-        console.log("Profile card response:",response.data.data)
+        console.log("User fetched:",response.data.data)
         setUser(response.data.data);
         // if (user) {
         //   setLoggedIn(true)
@@ -54,12 +56,35 @@ export default function Home() {
     setLogged();
   }, [user])
 
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:5001/project', { withCredentials: true });
+  //       console.log(response.data.data)
+  //       setPosts(response.data.data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchPosts();
+  //   const fetchCurrentUserPosts = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:5001/project/auth/getProjectByUserId', { withCredentials: true });
+  //       console.log("fetchCurrentUserPosts:", response.data.data)
+  //       setCurrentUserPosts(response.data.data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchCurrentUserPosts();
+  // }, [user]);
+
   return (
     <>
       {loggedIn ? 
         <main className="bg-gradient-to-br from-gray-700 from-0% via-cyan-900 via-40%  to-gray-900 to-90% flex min-h-screen flex-row flex-wrap items-center justify-between p-24 w-full h-full">
           <div className="flex-grow w-full h-full items-center justify-center">   
-            <Dashboard />
+            <Dashboard user={user} />
           </div>
         </main>
         : 
