@@ -58,7 +58,7 @@
 import React, { useState, useEffect } from 'react';
 import FullPost from './FullPost';
 import DeletePost from './DeleteButton';
-import MakePost from '../MainComponents/UpdatePost';
+import MakePost from '../MainComponents/CreatePost';
 import axios from 'axios';
 
 const ProjectCard = ({ post, selectedLanguages, user }) => {
