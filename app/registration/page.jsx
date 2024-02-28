@@ -18,12 +18,20 @@ const Signup = () => {
       console.log("trying to Sign up")
       const response = await apiClient.register(username, email, password);
       console.log(response);
-      // Display a success message to the user
+      
       // Redirect the user to the login page
       router.push('/login');
 
     } catch (error) { 
       console.error('Signup failed:', error);
+
+      if (error.response && error.response.status === 400) {
+        // Handle 400 Bad Request error
+        alert('Signup failed: ' + error.response.data.message);
+      } else {
+        // Handle other errors
+        alert('Signup failed. Please try again later.');
+      }
       // Display error messages to the user
     }
   }
@@ -43,6 +51,7 @@ const Signup = () => {
         <div>
           <label className="text-lg font-bold mb-2 block text-gray-300">Password:</label>
           <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" name="password" className="w-full p-2 border rounded text-gray-900" />
+          <p className='mt-2 text-gray-300'>Password must be 8-20 characters long and contain at least one letter, one number, and one special character.</p>
         </div>
         <div>
           <button type="submit" className="text-lg font-bold w-full mt-2 p-2 bg-cyan-700 text-white rounded">Sign Up</button>
