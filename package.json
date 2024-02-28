@@ -21,7 +21,10 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
+    "chai": "^5.1.0",
+    "mocha": "^10.3.0",
     "postcss": "^8",
+    "supertest": "^6.3.4",
     "tailwindcss": "^3.3.0"
   },
   "proxy": "https://project-board-backend.onrender.com"
