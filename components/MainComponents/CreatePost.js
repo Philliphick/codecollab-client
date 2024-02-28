@@ -8,7 +8,7 @@ import ApiClient from '@/utils/ApiClient';
 const apiClient = new ApiClient();
 
 export const MakePost = () => {
-  const [formData, setFormData] = useState({ name: '', description: '', repoLink: '', tags: [], timeframe: '' });
+  const [formData, setFormData] = useState({ name: '', description: '', repoLink: '', tags: []});
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
@@ -26,8 +26,8 @@ export const MakePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { name, description, repoLink, tags, timeframe } = formData;
-      const response = await apiClient.makePost({ name, description, repoLink, tags, timeframe });
+      const { name, subheading, description, repoLink, tags } = formData;
+      const response = await apiClient.makePost({ name, subheading, description, repoLink, tags });
       console.log(response);
       setSubmitted(true);
     } catch (error) {
@@ -46,15 +46,19 @@ export const MakePost = () => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="flex flex-col">
           <label htmlFor="name" className="font-bold mb-1">Project Name</label>
-          <input type="text" name="name" id="name" className="appearance-textfield p-2 border rounded" onChange={handleChange} />
+          <input type="text" style={{ color: 'black' }} name="name" id="name" className="appearance-textfield p-2 border rounded" onChange={handleChange} />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="subheading" className="font-bold mb-1">Subheading</label>
+          <input type="text" style={{ color: 'black' }} name="subheading" id="subheading" className="appearance-textfield p-2 border rounded" onChange={handleChange}/>
         </div>
         <div className="flex flex-col">
           <label htmlFor="description" className="font-bold mb-1">Description</label>
-          <input type="text" name="description" id="description" className="p-2 border rounded" onChange={handleChange} />
+          <input type="text" style={{ color: 'black' }} name="description" id="description" className="p-2 border rounded" onChange={handleChange} />
         </div>
         <div className="flex flex-col">
           <label htmlFor="repoLink" className="font-bold mb-1">Repo Link</label>
-          <input type="text" name="repoLink" id="repoLink" className="p-2 border rounded" onChange={handleChange} />
+          <input type="text" style={{ color: 'black' }} name="repoLink" id="repoLink" className="p-2 border rounded" onChange={handleChange} />
         </div>
         <div className="flex space-x-4">
           {languages.map(({ name, image }) => (
@@ -63,7 +67,7 @@ export const MakePost = () => {
             </div>
           ))}
         </div>
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           <label htmlFor="timeframe" className="font-bold mb-1">Timeframe</label>
           <select name="timeframe" id="timeframe" className="p-2 border rounded" onChange={handleChange}>
             <option value="1">1 week</option>
@@ -71,7 +75,7 @@ export const MakePost = () => {
             <option value="3">1 - 2 months</option>
             <option value="4">3 months</option>
           </select>
-        </div>
+        </div> */}
         <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300 ease-in-out">Submit</button>
       </form>
     </div>

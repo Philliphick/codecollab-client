@@ -6,6 +6,7 @@ import Dashboard from '../../components/MainComponents/Dashboard';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import MakeProfile from '../../components/UserComponents/MakeProfile';
+import Logout from '@/components/MainComponents/Logout';
 
 export const ProfileCard = ({ users }) => {
   console.log(users)
@@ -59,8 +60,10 @@ export const ProfileCard = ({ users }) => {
           {profile?.githubLink && <p className=''><span className="font-bold">GitHub:</span> <a href={profile.githubLink} className="text-blue-400 hover:underline">{profile.githubLink}</a></p>}
       
           {profile?.telegram && <p className='mb-2'><span className="font-bold">Telegram:</span> <a href={`https://t.me/${profile.telegram}`} target='_blank' className="text-blue-400 hover:underline">{profile.telegram}</a></p>}
-          
+          <div className='flex flex-row justify-evenly w-full'>
           <button className="text-white  font-italic bg-orange-500 w-fit font-bold px-2 rounded" onClick={handleUpdateButton}>Update</button>
+          <Logout />
+          </div>
         {showUpdate && (
           <div className='relative'>
             <MakeProfile user={user} />

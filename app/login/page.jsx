@@ -1,8 +1,9 @@
 "use client"
 import React, { useState } from 'react';
-// import { useRouter } from 'next/navigation';
-import ApiClient from '../../../utils/ApiClient';
-import Signup from '../registration/Signup';
+import { useRouter } from 'next/navigation';
+import ApiClient from '../../utils/ApiClient';
+import Signup from '../registration/page';
+import Link from 'next/link';
 
 const SignIn = () => {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -10,14 +11,15 @@ const SignIn = () => {
   const [username, setUsername] = useState('');
   const apiClient = new ApiClient();
   
-
+  const router = useRouter();
   const handleLogin = async (e) => {
-    // const router = useRouter();
+    
+    console.log("hello from handleLogin")
     e.preventDefault();
     try {
       const response = await apiClient.login(username, password);
       console.log(response);
-      // router.push('/');
+      router.push('/');
 
       
       // Handle response from server
@@ -41,7 +43,9 @@ const SignIn = () => {
               <div>
                 <label htmlFor="username" className="block font-medium leading-6 text-gray-300">Username</label>
                 <div className="mt-2">
-                  <input onChange={(e) => setUsername(e.target.value)} value={username} id="username" name="username" type="text" autoComplete="username" required className="block w-full rounded-md border-0 py-2 px-4 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600  sm:leading-6"/>
+
+                  <input onChange={(e) => setUsername(e.target.value)} value={username} id="username" name="username" type="text" autoComplete="username" required className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+
                 </div>
               </div>
 
@@ -51,7 +55,9 @@ const SignIn = () => {
                   
                 </div>
                 <div className="mt-2">
-                  <input onChange={(e) => setPassword(e.target.value)} id="password" name="password" type="password" autoComplete="current-password" required className="block w-full rounded-md border-0 py-2 px-4 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600   sm:leading-6"/>
+
+                  <input onChange={(e) => setPassword(e.target.value)} id="password" name="password" type="password" autoComplete="current-password" required className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+
                 </div>
               </div>
 
@@ -62,7 +68,7 @@ const SignIn = () => {
 
             <p className="mt-10 text-center text-lg text-gray-300">
               Not a member?
-              <a onClick={() => setShowSignUp(true)} href="#" className="font-semibold leacyan-6 hover:text-indigo-500"> Sign Up</a>
+             <Link href="/registration" onClick={() => setShowSignUp(true)} className="font-semibold leacyan-6 hover:text-indigo-500"> Sign Up</Link>
             </p>
           </div>
         </div>

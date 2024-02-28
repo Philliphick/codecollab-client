@@ -80,10 +80,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserProfile from '../UserComponents/UserProfile';
 
+import Link from 'next/link';
+
+
 const FullPost = ({ postId, onClose, user, post }) => {
   const [currentPost, setCurrentPost] = useState(post);
   const [ownerOfPost, setOwnerOfPost] = useState('');
   const [showUserProfile, setShowUserProfile] = useState(false);
+  const [shareableLink, setShareableLink] = useState('');
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -129,6 +133,18 @@ const FullPost = ({ postId, onClose, user, post }) => {
   }, [currentPost.userId]);
   console.log("owner of post", ownerOfPost);
 
+  useEffect(() => {
+    const generateShareableLink = () => {
+          const baseUrl = window.location.origin; // Get the base URL from the current window location
+          const dynamicRoute = `${baseUrl}/fullpostshare/${postId}`;
+          setShareableLink(dynamicRoute);
+        };
+
+    if (!shareableLink && postId) {
+      generateShareableLink();
+    }
+  }, [postId])
+
 
 
   const handleProfileClick = () => {
@@ -147,30 +163,53 @@ const FullPost = ({ postId, onClose, user, post }) => {
   };
 
   return (
-    <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2/3 h-2/3 z-50">
-  <div className="bg-gray-800 rounded-md p-12 text-center text-white ring-2 ring-orange-700 flex flex-col justify-between items-center">
-    <button className="absolute text-2xl top-2 right-2 text-orange-500" onClick={onClose}>X</button>
-    <h1 className="text-2xl font-bold mb-4">{currentPost.name}</h1>
-    <hr className='mb-4 w-1/2 mx-auto text-orange-500'></hr>
-    <div className="mb-6 text-2xl  mx-16 leading-loose">{currentPost.description}</div>
-    <div className="mb-4 flex flex-row gap-4">
-    
-    {currentPost.tags.map((tag, index) => (
-      <div className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 my-2 mr-2" key={index}>{tag}</div>
-    ))}
-    
-    </div>
-    <a href={currentPost.repoLink} target='_blank'><img src="https://github.com/fluidicon.png" alt="GitHub logo" className="w-12 h-12 m-2"></img></a>
-    {/* <div className="mb-4">Repo Link: {currentPost.repoLink}</div> */}
-    <button className="text-white font-italic bg-orange-500 font-bold py-2 px-4 rounded" onClick={handleProfileClick}>Contact</button>
+    // <div className='fixed left-0 top-0 h-full w-full bg-black bg-opacity-50'>
+    <div className="fixed max-h-screen top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2/3 h-2/3 z-50 ">
+      <div className="bg-gray-800 rounded-md p-12 text-center text-white ring-2 ring-orange-700 flex flex-col justify-between items-center">
+        <button className="absolute text-2xl top-2 right-2 text-orange-500" onClick={onClose}>X</button>
+
+        <h1 className="text-3xl mb-4">{currentPost.name}</h1>
+        <h2 className="text-xl mb-4">{currentPost.subheading}</h2>
+
+        <hr className='mb-4 w-1/2 mx-auto text-orange-500'></hr>
+        <div className="mb-6 text-2xl  mx-16 leading-loose">{currentPost.description}</div>
+        <hr className='mb-4 w-1/2 mx-auto mb-6'></hr>
+
+        <div className="mb-4 flex flex-row place-content-evenly w-full gap-10">
+          {/* <div className="mb-4">Expected timeframe: {currentPost.timeframe}</div> */}
+          <div className=" flex flex-wrap gap-2">
+            {post.tags.map((tag, idx) => (
+              <span key={idx} className="bg-gradient-to-r from-cyan-500 to-gray-500 text-gray-900 px-2 py-1 text-xl rounded-md">{tag}</span>
+            ))}
+          </div>
+        </div>
+        
+        
+        <div className=" flex flex-row justify-evenly  w-1/2" >
+        {/* <div className="mb-4">Repo Link: {currentPost.repoLink}</div> */}
+        <button className="bg-orange-500 text-white px-2 py-1 text-xl rounded-md mt-4 hover:bg-orange-600" onClick={handleProfileClick}>Contact</button>
+        <a href={currentPost.repoLink} target='_blank'><img src="https://github.com/fluidicon.png" alt="GitHub logo" className="fixed w-12 h-12 m-2"></img></a>
+        </div>
         {showUserProfile && (
           <div className='relative'>
             <UserProfile classList='animated animatedFadeIn transition-all duration-300' ownerOfPost={ownerOfPost} />
             <button className="text-yellow-500 text-xl absolute top-4 right-2" onClick={handleCloseProfile}>X</button>
           </div>
         )}
-  </div>
-</div> 
+        {shareableLink && (
+          <div className="text-white mt-4">
+            <p className='text-xl'>Share the creators projects:</p>
+            <Link href={`/fullpostshare/${currentPost.userId}`} target="_blank" className='text-cyan-500'>{shareableLink}</Link>
+
+          </div>
+        )}
+
+      </div>
+
+
+    </div>
+
+    // </div>
   );
 };
 

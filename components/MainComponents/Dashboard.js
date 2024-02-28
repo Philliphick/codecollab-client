@@ -1,120 +1,47 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ProjectCard from '../ProjectComponents/ProjectCard';
 import Sidebar from './Sidebar';
-import MakePost from './UpdatePost'
+import MakePost from './CreatePost'
 import Link from 'next/link';
-import SignIn from '../../app/pages/login/SignIn';
+import SignIn from '../../app/login/page';
 import MakeProfile from '../UserComponents/MakeProfile'
 import ProfileCard from '../../app/pages/ProfileCard';
-import Signup from '@/app/pages/registration/Signup';
+import Signup from '@/app/registration/page';
+import UserPosts from '../UserPosts';
+import DeletePost from '../ProjectComponents/DeleteButton';
 
-
-
-
-
-
-
-// const Dashboard = () => {
-
-// const [posts, setPosts] = useState([]);
-// const [selectedLanguages, setSelectedLanguages] = useState([]);
-
-// useEffect(() => {
-//   // Fetch posts
-//   axios.get('http://localhost:5001/api', {withCredentials: true})
-//   .then(res => {
-//     const { data } = res.data;
-//     setPosts(data);
-//     console.log(data)
-
-//   })
-
-//   .catch(error => {
-//     console.error('Error fetching books:', error);
-//   });
-
-// }, []) 
-
-// useEffect(() => {
-//   axios.get('http://localhost:5001/api/private-route', {withCredentials: true})
-//   .then(res => {
-//     console.log(res.data)
-//   })
-//   .catch(error => {
-//     console.error('Error fetching projects:', error);
-//   })
-// })
-
-
-
-
-
-// return (
-//   <>
-//  <div className="flex w-full">
-//        <div className="w-1/5">
-//         <Sidebar />
-//         {/* <ProtectedPage /> */}
-//        </div>
-//      <div className="w-4/5 space-y-4">
-//        <div className="p-4 bg-white shadow rounded">
-//           <ProjectCard />
-//          </div>
-//          <div className="p-4 bg-gray-200 shadow rounded">
-//            <MakePost />
-//          </div>
-//        </div>
-//      </div>
-
-
-//   </>
-
-
-//   )
-// }
-
-// export default Dashboard
-
-// ====================================
-
-export const Dashboard = () => {
+export const Dashboard = ({ user }) => {
   const [posts, setPosts] = useState([]);
+  const [currentUserPosts, setCurrentUserPosts] = useState(null);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [allUsers, setAllUsers] = useState([]);
-  const [user, setUser] = useState({});
-  const [currentUserPosts, setCurrentUserPosts] = useState([]);
+  
+  
   const [showCurrentUserPosts, setShowCurrentUserPosts] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [showProjects, setShowProjects] = useState(false);
+
+  console.log("current User", user)
+  
+  const makePostRef = useRef(null);
+
+  const userId = user._id
+  console.log(userId)
 
   useEffect(() => {
-
-    const fetchUser = async () => {
-
-      try {
-        console.log("Hello world from fetchuser")
-        const response = await axios.get(`http://localhost:5001/project/getprofile`, { withCredentials: true });
-
-        setUser(response.data.data);
-
-        if (user) {
-          setLoggedIn(true)
-        } else {
-          setLoggedIn(false)
-        }
-
-      } catch (error) {
-        console.error(error);
+    const setLogged = async () => {
+      if(user) {
+        setLoggedIn(true)
       }
     }
-    fetchUser()
+    setLogged();
+  }, [user])
 
-  }, [])
 
   useEffect(() => {
+    console.log(userId)
     const fetchPosts = async () => {
       try {
         const response = await axios.get('http://localhost:5001/project', { withCredentials: true });
@@ -124,30 +51,31 @@ export const Dashboard = () => {
         console.error(error);
       }
     };
-
     fetchPosts();
-   
-  }, [user]);
-
-  useEffect(() => {
     const fetchCurrentUserPosts = async () => {
-      try { 
-        const userId = user._id;
-        console.log(userId)
-        const res = await axios.get(`http://localhost:5001/project/getProjectByUserId/${userId}`, { withCredentials: true });
-        console.log("fetchCurrentUserPosts:", res)
-        setCurrentUserPosts(res.data.data);
-      }
-       catch (error) {
+      try {
+        console.log("userId", userId)
+        const response = await axios.get(`http://localhost:5001/project/getProjectByUserId/${userId}`, { withCredentials: true });
+        console.log("fetchCurrentUserPosts:", response.data.data)
+        const currentPostArr = []
+        const length = response.data.data.length
+        for(let i = 0; i < length; i++) {
+          currentPostArr.push(response.data.data[i])
+          console.log("currentPostArr", currentPostArr)
+          setCurrentUserPosts(currentPostArr)
+          
+        }
+       
+        
+        console.log("currentUserPosts", currentUserPosts)
+      } catch (error) {
         console.error(error);
       }
-    
-    }
+    };
     fetchCurrentUserPosts();
   }, [user]);
 
-  console.log("from users posts:", currentUserPosts)
-
+  console.log(currentUserPosts)
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
@@ -158,111 +86,117 @@ export const Dashboard = () => {
       }
     };
     fetchAllUsers()
-
   }, [user])
   console.log("From fetchAlUser:", allUsers)
-
-
-
   console.log("from fetchUser:", user)
   console.log("logged in:", loggedIn)
-
   const handleProfileClick = () => {
     setShowUserProfile(!showUserProfile);
     console.log('Rendering user profile...');
     // Implement your logic to render the user's profile component here
   };
-
   const handleCloseProfile = () => {
     setShowUserProfile(false); // Set showUserProfile state to false to hide user profile
   };
-
   const handleUserPostsClick = () => {
     setShowCurrentUserPosts(!showCurrentUserPosts);
   }
 
+  const handleCloseUserPost = () => {
+    setShowCurrentUserPosts(false); // Set showUserProfile state to false to hide user profile
+  };
+  
   const filteredPosts = selectedLanguages.length > 0
     ? posts.filter(post => selectedLanguages.some(lang => post.tags.includes(lang)))
     : posts;
-
-    const handleCloseProjects = () => {
-      setShowProjects(false); // Set showUserProfile state to false to hide user profile
-    };
-
   return (
-<>
-
-
+    <>
       {loggedIn ? (
-        <><div className="w-1/2 flex justify-center">
-
+        <><div className=" flex justify-center">
         </div><div className="mt-8 w-1/2 flex justify-center">
             {/* <ProfileCard user={user} /> */}
-          
-
-            </div><div className="flex">
-              <div className="fixed right-4 top-2 h-full z-10">
-                <button className="bg-orange-700 hover:bg-cyan-700 transition duration-300 ease-in-out text-white font-bold py-2 px-4 m-2 rounded opacity-80">ADD PROJECT</button>
-                <button onClick={handleUserPostsClick} className='bg-orange-700 hover:bg-cyan-700 transition duration-300 ease-in-out text-white font-bold py-2 px-4 m-2 rounded opacity-80'>YOUR PROJECTS</button>
-                <button onClick={handleProfileClick} onClose={handleCloseProfile} className='bg-orange-700 hover:bg-cyan-700 transition duration-300 ease-in-out text-white font-bold py-2 px-4 m-2 rounded opacity-80'>PROFILE</button>
-
-                {showCurrentUserPosts && (
-                  <div className='fixed left-0 top-0 h-full w-full bg-black bg-opacity-60 flex flex-col  justify-center items-center'>
-                    <h1 className="text-5xl mb-12 font-bold mb-4 text-orange-600 text-left  p-2 border-b-2 border-orange-600 ">YOUR POSTS</h1>
-                    <div className='bg-gradient-to-br from-gray-700 via-cyan-900 via-40% to-gray-900 to-90% p-4'>
-                    <button className="text-orange-600 text-2xl absolute top-1/3 right-1/3 ring-1 ring-orange-700 px-2" onClick={handleCloseProfile}>X</button>
-                      {currentUserPosts.length > 0 ? (
-                        <div className=''>
-                          
-                          {currentUserPosts.map(post => (
-                            <ProjectCard key={post.id} post={post} user={user} selectedLanguages={selectedLanguages} />
-                          ))}
-                        </div>
-                      ) : (
-                        <h3 className='bg-gradient-to-br ring ring-orange-700 ring-1 from-gray-700 via-cyan-900 via-40% to-gray-900 to-90% p-6 text-5xl text-center text-xl font-bold text-orange-600'>NO POSTS CURRENTLY</h3>
-                      )}
+          </div><div className="flex">
+            <div className="fixed right-6 top-2 h-full z-10">
+              <button onClick={() => makePostRef.current.scrollIntoView({ behavior: 'smooth' })} className="bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-90">Add Project</button>
+              <button onClick={handleProfileClick} onClose={handleCloseProfile} className='bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-90'>Profile</button>
+              <button onClick={handleUserPostsClick} onClose={handleCloseUserPost} className='bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-90'>Your Posts</button>
+              {showUserProfile && (
+                <>
+                  <ProfileCard user={user} />
+                </>
+              )}
+              {showCurrentUserPosts && (
+                <div className=' h-fit w-full flex justify-center bg-gradient-to-br from-orange-900 to-gray-800 rounded-lg text-black'>
+                  <div className='flex flex-col my-4'>
+                  {currentUserPosts ? (
+                    <div>
+                      {currentUserPosts.map(post => (
+                       <div className="my-2 bg-gradient-to-r from-gray-900 to-gray-800 text-white p-4 ring-1 ring-orange-700 ring-opacity-50 shadow-xl rounded-md max-w-xs mx-auto  hover:shadow-2xl hover:bg-gray-900 hover:ring-orange-500 transition duration-300 ease-in-out">
+                       <h3 className="text-2xl text-gray-300 font-bold mb-1 p-2 text-center">{post.name}</h3>
+                       <p className='text-gray-400 mb-2 p-2 text-center text-lg'>{post.description}</p>
+                       <div className='flex flex-row gap-4 p-2 justify-center items-center'>
+                        
+                       <a href={post.repoLink}><img className='w-14 h-14 hover:scale-125' src='/github.png' alt="GitHub"></img></a>
+                       <DeletePost _id={post._id}/>
+                       </div>
+                     </div>
+                      ))}
                     </div>
+                  ) : (
+                    <h3 className='text-center text-xl font-bold text-black'>No posts found.</h3>
+                  )}
                   </div>
-                )}
-                {showUserProfile && (
-                  <>
-                    <ProfileCard user={user} />
-
-                  </>
-                )}
-              </div>
-              <div className="fixed left-0 top-0 h-full">
-                <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
-              </div>
-              <div className="ml-28 flex flex-col items-center">
-                <h1 className="text-5xl mb-12 font-bold mb-4 text-orange-700 text-left  p-2 border-b-2 border-t-2 border-orange-700">CURRENT PROJECTS</h1>
-                <div className="flex flex-wrap gap-10">
-                  {filteredPosts.map(post => (
-                    <ProjectCard key={post.id} post={post} user={user} selectedLanguages={selectedLanguages} />
-                  ))}
                 </div>
-
-                <div className="mt-12 w-5/6 flex justify-center">
-                  <MakePost />
-                </div>
-                
-
-              </div>
-
-
-            </div></>
+              )}
+            </div>
             
-
-
-            ) : (
-            <>
-              <SignIn />
-            </>
-            )}
-          </>
-
+            <div className="fixed left-0 top-0 h-full">
+              <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
+            </div>
+            <div className="ml-20 flex flex-col items-center">
+              <h1 className="text-5xl text-orange-700 font-bold mb-10">Current Projects</h1>
+              <div className="flex flex-wrap gap-10">
+                {filteredPosts.map(post => (
+                  <ProjectCard key={post.id} post={post} user={user} selectedLanguages={selectedLanguages} />
+                ))}
+              </div>
+              
+              
+              {/* <Link href={{pathname: '/userposts', query: {userPosts: JSON.stringify(currentUserPosts)} }}>
+                User Posts
+              </Link> */}
+              
+                  
+             
+              
+              
+            </div>
+          </div></>
+      ) : (
+        null
+      )}
+      <div className="mt-12 w-5/6 flex justify-center">
+                <MakePost ref={makePostRef}/>
+              </div>
+              
+    </>
   );
-
+  // return (
+  //   <div className="flex space-x-4">
+  //     <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
+  //     <div className="flex flex-wrap space-x-4 space-y-4">
+  //       {filteredPosts.map(post => (
+  //         <ProjectCard key={post.id} post={post} selectedLanguages={selectedLanguages} />
+  //       ))}
+  //     </div>
+  //     <div>
+  //       {/* <Link href="/makePost" passHref>
+  //         <a className="px-2 py-1 text-sm bg-blue-500 text-white rounded">Create Project</a>
+  //       </Link> */}
+  //       <MakePost />
+  //     </div>
+  //   </div>
+  // );
 };
-
 export default Dashboard;
+
