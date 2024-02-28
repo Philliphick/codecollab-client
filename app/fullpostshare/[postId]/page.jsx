@@ -75,7 +75,7 @@ const ProjectDetails = ({params}) => {
     <div className='flex flex-col items-center justify-center  w-full p-10 space-y-4 text-white bg-gray-900'>
         <h1 className="relative text-3xl font-bold text-orange-500 mb-2 text-center">PROJECTS OF : {userData?.name}</h1>
         {userData.telegramUsername && <p><span className=" text-gray-600 font-italic">Contact: </span> 
-        <a href={`https://t.me/${userData.telegramUsername}`} target='_blank' className="text-orange-500 hover:underline"> Telegram</a></p>}
+        <a href={`https://t.me/${userData.telegramUsername}/`} target='_blank' className="text-orange-500 hover:underline"> Telegram</a></p>}
             {userPosts.map((post, index) => (
                 <div key={index} className="bg-gray-800 rounded-md p-10 shadow-md text-center  w-full ">
                     <h2 className="text-2xl font-bold text-orange-500 mb-4">{post.name}</h2>
