@@ -1,79 +1,3 @@
-// "use client"
-// // FullPost.js
-// import React, { useEffect, useState } from 'react';
-
-// const FullPost = ({ postId, onClose, user, post }) => {
-//   const [currentPost, setCurrentPost] = useState({});
-
-//   useEffect(() => {
-//     const fetchPost = async () => {
-//       try {
-//         const response = await fetch(`https://project-board-backend.onrender.com/${postId}`);
-//         if (!response.ok) {
-//           throw new Error('Failed to fetch post');
-//         }
-//         const data = await response.json();
-//         setCurrentPost(data[0]);
-//       } catch (error) {
-//         console.error('Error fetching post:', error);
-//       }
-//     };
-
-//     if (postId) {
-//       fetchPost();
-//     }
-//   }, [postId]);
-
-//   const handleClose = () => {
-//     onClose();
-//   };
-
-//   // find which user the post belongs to
-//  useEffect(() => {
-//   const assignUser = async () => {
-//     if (post._id && post.userId && user) {
-//       const {usersIdForPost} = post.userId
-//       try {
-//         const res = await axios.get(`http://localhost:5001/project/getUserById/${usersIdForPost}`)
-//         console.log(res.data)
-//         return res.data
-
-//       } catch (error) {
-//         console.error('Error fetching user\'s posts:', error);
-//       }
-//     }
-  
-//   }
-//   assignUser()
-//  }, [])
-
-//   const handleOutsideClick = (e) => {
-//     if (e.target.classList.contains('full-post-overlay')) {
-//       onClose();
-//     }
-//   };
-
-
-
-//   return (
-  
-//     <div className="full-post-overlay absolute w-2/3 h-2/3 z-50" onClick={handleOutsideClick}>
-//       <div className="full-post-content rounded-md p-4 bg-gray-800 text-white p-6 ring-1 ring-orange-700">
-//         <button className="m-2 absolute top-2 right-2 text-orange-500" onClick={handleClose}>X</button>
-//         <h1 className='text-xl'>{post.name}</h1>
-//         <div className="mb-2 font-bold"><p>{post.description}</p></div>
-//         <div className="mb-2"><p>Expected timeframe: {post.timeframe}</p></div>
-//         <div className="mb-2"><p>Tags: {post.tags}</p></div>
-//         <div className="mb-2"><p>Repo Link: {post.repoLink}</p></div>
-//         <Comments postId={post._id} />
-//       </div>
-//     </div>
-    
-    
-//   );
-// };
-
-// export default FullPost;
 "use client"
 
 import React, { useEffect, useState } from 'react';
@@ -90,6 +14,8 @@ const FullPost = ({ postId, onClose, user, post }) => {
   const [shareableLink, setShareableLink] = useState('');
 
   useEffect(() => {
+
+    // get post data
     const fetchPost = async () => {
       try {
         // const response = await axios.get(`https://project-board-backend.onrender.com/${postId}`);
@@ -114,7 +40,7 @@ const FullPost = ({ postId, onClose, user, post }) => {
     
   }, [postId, currentPost._id]);
 
-  
+  // get owner of post
   useEffect(() => {
     const assignUser = async () => {
       if (currentPost._id && currentPost.userId) {
@@ -138,6 +64,7 @@ const FullPost = ({ postId, onClose, user, post }) => {
   console.log("owner of post", ownerOfPost);
 
   useEffect(() => {
+    // Generate shareable link
     const generateShareableLink = () => {
           const baseUrl = window.location.origin; // Get the base URL from the current window location
           const dynamicRoute = `${baseUrl}/fullpostshare/${postId}`;

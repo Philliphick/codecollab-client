@@ -122,7 +122,9 @@ export const Dashboard = ({ user }) => {
   const filteredPosts = selectedLanguages.length > 0
     ? posts.filter(post => selectedLanguages.some(lang => post.tags.includes(lang)))
     : posts;
-  return (
+
+ 
+    return (
     <div className=''>
       {loggedIn ? (
         <><div className=" flex justify-center">
@@ -130,6 +132,8 @@ export const Dashboard = ({ user }) => {
             {/* <ProfileCard user={user} /> */}
           </div><div className="flex">
             <div className="fixed right-6 top-2 h-full z-10">
+
+              <div className="fixed right-6 top-2 h-full z-10">
             <button onClick={scrollToBottom} className="bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-90">
                 Add Project</button>
               <button onClick={handleProfileClick} onClose={handleCloseProfile} className='bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-90'>Profile</button>
@@ -162,16 +166,18 @@ export const Dashboard = ({ user }) => {
                   </div>
                 </div>
               )}
+  </div>
+
                   <button
         className="absolute bottom-8 right-0 bg-orange-700 rounded-full px-4 py-2 mr-2 z-50 items-center text-xs text-white flex opacity-90"
         onClick={scrollToTop}
       >Back to Top</button>
             </div>
             
-            <div className="fixed left-0 top-0 h-full">
-              <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
+            <div className="invisible md:visible fixed left-0 top-0 h-full">
+              <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} className=""/>
             </div>
-            <div className="ml-20 flex flex-col items-center">
+            <div className="ml-0 md:ml-8 flex flex-col items-center">
               <h1 className="text-5xl text-orange-700 font-bold mb-10">Current Projects</h1>
               <div className="flex flex-wrap gap-10">
                 {filteredPosts.map(post => (
@@ -199,22 +205,7 @@ export const Dashboard = ({ user }) => {
               
     </div>
   );
-  // return (
-  //   <div className="flex space-x-4">
-  //     <Sidebar selectedLanguages={selectedLanguages} setSelectedLanguages={setSelectedLanguages} />
-  //     <div className="flex flex-wrap space-x-4 space-y-4">
-  //       {filteredPosts.map(post => (
-  //         <ProjectCard key={post.id} post={post} selectedLanguages={selectedLanguages} />
-  //       ))}
-  //     </div>
-  //     <div>
-  //       {/* <Link href="/makePost" passHref>
-  //         <a className="px-2 py-1 text-sm bg-blue-500 text-white rounded">Create Project</a>
-  //       </Link> */}
-  //       <MakePost />
-  //     </div>
-  //   </div>
-  // );
+  
 };
 export default Dashboard;
 
