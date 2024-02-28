@@ -26,8 +26,9 @@ export default class ApiClient {
     try {
       console.log("this is username, email, password", username, email, password);
       const response = await this.client.post(`${BASE_URL}/auth/registration`, { username, email, password }, { withCredentials: true });
-      return response.data;
       console.log("this is response.data", response.data);
+      return response.data;
+      
     } catch (error) {
       throw error;
     }
@@ -35,7 +36,7 @@ export default class ApiClient {
 
   async logout() {
     try {
-      const response = await this.client.post("/auth/logout");
+      const response = await this.client.post(`${BASE_URL}/auth/logout`, {withCredentials: true});
       return response.data;
     } catch (error) {
       throw error;
