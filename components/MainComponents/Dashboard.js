@@ -5,10 +5,7 @@ import ProjectCard from '../ProjectComponents/ProjectCard';
 import Sidebar from './Sidebar';
 import MakePost from './CreatePost'
 import Link from 'next/link';
-import SignIn from '../../app/login/page';
-import MakeProfile from '../UserComponents/MakeProfile'
 import ProfileCard from '../../app/pages/ProfileCard';
-import Signup from '@/app/registration/page';
 import UserPosts from '../UserPosts';
 import DeletePost from '../ProjectComponents/DeleteButton';
 
@@ -25,7 +22,7 @@ export const Dashboard = ({ user }) => {
 
   console.log("current User", user)
   
-  const makePostRef = useRef(null);
+  
 
   const userId = user._id
   console.log(userId)
@@ -105,19 +102,36 @@ export const Dashboard = ({ user }) => {
   const handleCloseUserPost = () => {
     setShowCurrentUserPosts(false); // Set showUserProfile state to false to hide user profile
   };
+
+  // Scroll to top function
+  const isBrowser = () => typeof window !== 'undefined'; //The approach recommended by Next.js
+
+  function scrollToTop() {
+      if (!isBrowser()) return;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function scrollToBottom() {
+    if (!isBrowser()) return;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const bottomPosition = documentHeight - windowHeight;
+    window.scrollTo({ top: bottomPosition, behavior: 'smooth' });
+}
   
   const filteredPosts = selectedLanguages.length > 0
     ? posts.filter(post => selectedLanguages.some(lang => post.tags.includes(lang)))
     : posts;
   return (
-    <>
+    <div className=''>
       {loggedIn ? (
         <><div className=" flex justify-center">
         </div><div className="mt-8 w-1/2 flex justify-center">
             {/* <ProfileCard user={user} /> */}
           </div><div className="flex">
             <div className="fixed right-6 top-2 h-full z-10">
-              <button onClick={() => makePostRef.current.scrollIntoView({ behavior: 'smooth' })} className="bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-90">Add Project</button>
+            <button onClick={scrollToBottom} className="bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-90">
+                Add Project</button>
               <button onClick={handleProfileClick} onClose={handleCloseProfile} className='bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-90'>Profile</button>
               <button onClick={handleUserPostsClick} onClose={handleCloseUserPost} className='bg-orange-800 hover:bg-orange-900 transition duration-300 text-white font-bold py-2 px-4 m-2 rounded opacity-90'>Your Posts</button>
               {showUserProfile && (
@@ -148,6 +162,10 @@ export const Dashboard = ({ user }) => {
                   </div>
                 </div>
               )}
+                  <button
+        className="absolute bottom-8 right-0 bg-orange-700 rounded-full px-4 py-2 mr-2 z-50 items-center text-xs text-white flex opacity-90"
+        onClick={scrollToTop}
+      >Back to Top</button>
             </div>
             
             <div className="fixed left-0 top-0 h-full">
@@ -169,17 +187,17 @@ export const Dashboard = ({ user }) => {
                   
              
               
-              
+          
             </div>
           </div></>
       ) : (
         null
       )}
-      <div className="mt-12 w-5/6 flex justify-center">
-                <MakePost ref={makePostRef}/>
+      <div className=" items-center mx-auto mt-12 w-5/6 flex justify-center">
+                <MakePost id="makepost"/>
               </div>
               
-    </>
+    </div>
   );
   // return (
   //   <div className="flex space-x-4">
