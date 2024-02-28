@@ -101,16 +101,20 @@ const FullPost = ({ postId, onClose, user, post }) => {
         const data = response.data[0];
         console.log("data", data);
         setCurrentPost(data);
+        
       } catch (error) {
         console.error('Error fetching post:', error);
       }
     };
-
+    
     if (!currentPost._id && postId) {
       fetchPost();
     }
+
+    
   }, [postId, currentPost._id]);
 
+  
   useEffect(() => {
     const assignUser = async () => {
       if (currentPost._id && currentPost.userId) {
