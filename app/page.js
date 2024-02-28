@@ -82,7 +82,7 @@ export default function Home() {
   return (
     <>
       {loggedIn ? 
-        <main className="bg-gradient-to-br from-gray-700 from-0% via-cyan-900 via-40%  to-gray-900 to-90% flex min-h-screen flex-row flex-wrap items-center justify-between p-24 w-full h-full">
+        <main className="h-full bg-gradient-to-br from-gray-700 from-0% via-cyan-900 via-40%  to-gray-900 to-90% flex min-h-screen flex-row flex-wrap items-center justify-between p-24 w-full h-full">
           <div className="flex-grow w-full h-full items-center justify-center">   
             <Dashboard user={user} />
           </div>
