@@ -14,35 +14,13 @@ const ProjectDetails = ({params}) => {
     const [userData, setUserData] = useState({});
 
 
-    // useEffect(() => {
-    //     const fetchPost = async () => {
-    //       try {
-    //         // const response = await axios.get(`https://project-board-backend.onrender.com/${postId}`);
-    //         console.log(id)
-    //         const response = await axios.get(`http://localhost:5001/project/${id}`, {withCredentials: true});
-    //         console.log("in fetch post", response.data);
-    //         if (response.status !== 200 ) {
-    //           throw new Error('Failed to fetch post');
-    //         }
-    //         const data = response;
-    //         console.log("data", data);
-    //         setPost(data);
-    //         console.log("post", post);
-    //       } catch (error) {
-    //         console.error('Error fetching post:', error);
-    //       }
-    //     };
     
-    //     if (!post && id) {
-    //       fetchPost();
-    //     }
-    //   }, [id]);
 
       useEffect(() => {
         const fetchPostByUser = async () => {
             try {
                 console.log("userId", id)
-                const response = await axios.get(`http://localhost:5001/project/getProjectByUserId/${id}`, { withCredentials: true });
+                const response = await axios.get(`https://project-board-backend.onrender.com/project/getProjectByUserId/${id}`, { withCredentials: true });
                 console.log("fetchCurrentUserPosts:", response.data.data)
                 
 
@@ -58,7 +36,7 @@ const ProjectDetails = ({params}) => {
       useEffect(() => {
         const fetchUserData = async () => {
           try {
-            const response = await axios.get(`http://localhost:5001/project/getUserById/${id}`);
+            const response = await axios.get(`https://project-board-backend.onrender.com/project/getUserById/${id}`);
             setUserData(response.data[0]);
             
             console.log("userProfile user data pulled:",response.data)

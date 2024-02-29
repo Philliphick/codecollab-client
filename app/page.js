@@ -32,7 +32,7 @@ export default function Home() {
           
           try {
             
-            const response = await axios.get(`http://localhost:5001/project/getprofile`, { withCredentials: true });
+            const response = await axios.get(`https://project-board-backend.onrender.com/project/getprofile`, { withCredentials: true });
             console.log("User fetched:",response.data.data)
             console.log(response)
             setUser(response.data.data);
@@ -65,28 +65,7 @@ export default function Home() {
     setLogged();
   }, [user])
 
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     try {
-  //       const response = await axios.get('http://localhost:5001/project', { withCredentials: true });
-  //       console.log(response.data.data)
-  //       setPosts(response.data.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchPosts();
-  //   const fetchCurrentUserPosts = async () => {
-  //     try {
-  //       const response = await axios.get('http://localhost:5001/project/auth/getProjectByUserId', { withCredentials: true });
-  //       console.log("fetchCurrentUserPosts:", response.data.data)
-  //       setCurrentUserPosts(response.data.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchCurrentUserPosts();
-  // }, [user]);
+  
 
   return (
     <>

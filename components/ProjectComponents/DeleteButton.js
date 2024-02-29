@@ -7,7 +7,7 @@ const DeletePost = ({ _id }) => {
   const deletePost = async () => {
     try {
       console.log(_id);
-      const response = await axios.delete(`http://localhost:5001/project/delete/${_id}`, { withCredentials: true });
+      const response = await axios.delete(`https://project-board-backend.onrender.com/project/delete/${_id}`, { withCredentials: true });
       console.log(response.data); // Log the response if needed
       // You can add further logic here if the deletion was successful
       window.location.reload();

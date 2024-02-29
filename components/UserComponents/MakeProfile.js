@@ -29,7 +29,7 @@ function MakeProfile({user}) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.patch(`http://localhost:5001/project/makeProfile/${user._id}`, profile);
+      const response = await axios.patch(`https://project-board-backend.onrender.com/project/makeProfile/${user._id}`, profile);
       console.log(response.data);
       setProfile(response.data.user);
     } catch (error) {

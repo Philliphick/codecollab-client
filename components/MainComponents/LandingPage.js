@@ -17,7 +17,7 @@ export const Dashboard = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/project', {withCredentials: true});
+        const response = await axios.get('https://project-board-backend.onrender.com/project', {withCredentials: true});
         console.log(response.data.data)
         setPosts(response.data.data);
       } catch (error) {
@@ -31,7 +31,7 @@ export const Dashboard = () => {
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/project/allusers', {withCredentials: true});
+        const response = await axios.get('https://project-board-backend.onrender.com/project/allusers', {withCredentials: true});
         setAllUsers(response.data);
       } catch (error) {
         console.error(error);
@@ -44,7 +44,7 @@ export const Dashboard = () => {
   useEffect(() => { 
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:5001/project/getprofile`, {withCredentials: true});
+        const response = await axios.get(`https://project-board-backend.onrender.com/project/getprofile`, {withCredentials: true});
         setUser(response.data.data);
 
         if (user) {

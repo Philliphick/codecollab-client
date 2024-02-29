@@ -19,7 +19,7 @@ const FullPost = ({ postId, onClose, user, post }) => {
     const fetchPost = async () => {
       try {
         // const response = await axios.get(`https://project-board-backend.onrender.com/${postId}`);
-        const response = await axios.get(`http://localhost:5001/project/${postId}`);
+        const response = await axios.get(`https://project-board-backend.onrender.com/project/${postId}`);
         console.log("in fetch post", response.data);
         if (response.status !== 200 ) {
           throw new Error('Failed to fetch post');
@@ -50,7 +50,7 @@ const FullPost = ({ postId, onClose, user, post }) => {
         console.log("usersIdForPost", usersIdForPost);
         
         try {
-          const res = await axios.get(`http://localhost:5001/project/getUserById/${usersIdForPost}`);
+          const res = await axios.get(`https://project-board-backend.onrender.com/project/getUserById/${usersIdForPost}`);
           
           setOwnerOfPost(res.data[0]._id);
           // Update user data or do something with the response
