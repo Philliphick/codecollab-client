@@ -38,8 +38,9 @@ const Signup = () => {
 
   return (
     <div
-      className="h-full bg-gradient-to-br from-gray-700 from-0% via-cyan-900 via-40% to-gray-900 to-90% flex min-h-screen flex-row flex-wrap items-center justify-between p-24"
-    >      <form className="space-y-4" onSubmit={handleSignup}>
+      className="h-full w-full bg-gradient-to-br from-gray-700 from-0% via-cyan-900 via-40% to-gray-900 to-90% flex min-h-screen flex-row flex-wrap items-center justify-between p-24 flex-grow">      
+    
+    <form className="space-y-4" onSubmit={handleSignup}>
         <h2 className="text-2xl mb-2 text-center text-gray-300 font-bold tracking-wide border-b-2 pb-2 pb-4 border-gray-400">Create Your Collaborator Account</h2>
         <div>
           <label className="text-lg font-bold mb-2 block text-gray-300">Username:</label>

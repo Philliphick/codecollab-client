@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import Image from 'next/image';
-import { profileImage } from '../../src/genericProfileImage'; 
+import { profileImage } from '../../src/genericProfileImage';
 import Dashboard from '../../components/MainComponents/Dashboard';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -57,7 +57,7 @@ export const ProfileCard = ({ users }) => {
           </div>
         </div>
         <div className='flex flex-col mx-4'>
-          {profile?.githubLink && <p className=''><span className="font-bold">GitHub:</span> <a href={profile.githubLink} className="text-blue-400 hover:underline">{profile.githubLink}</a></p>}
+          {profile?.githubLink && <p className=''><span className="font-bold">GitHub:</span> <a href={profile.githubLink} target="_blank" className="text-blue-400 hover:underline">{profile.githubLink}</a></p>}
       
           {profile?.telegram && <p className='mb-2'><span className="font-bold">Telegram:</span> <a href={`https://t.me/${profile.telegram}`} target='_blank' className="text-blue-400 hover:underline">{profile.telegram}</a></p>}
           <div className='flex flex-row justify-evenly w-full'>

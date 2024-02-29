@@ -8,7 +8,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 export const Dashboard = () => {
   const [posts, setPosts] = useState([]);
-  const [selectedLanguages, setSelectedLanguages] = useState([]);
+// const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [showSignIn, setShowSignIn] = useState(false);
   const [allUsers, setAllUsers] = useState([]);
   const [user, setUser] = useState({});
@@ -74,17 +74,7 @@ export const Dashboard = () => {
       <HeroPage />
       </div>
       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 sm:max-w-full md:max-w-[982px]">
-        <Carousel autoPlay infiniteLoop>
-          {groupedPosts.map((group, index) => (
-            <div key={index} className="flex justify-around">
-              {group.map(post => (
-                <div key={post.id} className="bg-black bg-opacity-50  sm:w-full md:w-100 h-90">
-                  <ProjectCard post={post} user={user} selectedLanguages={selectedLanguages} />
-                </div>
-              ))}
-            </div>
-          ))}
-        </Carousel> 
+        
       </div>
     </div>
   );

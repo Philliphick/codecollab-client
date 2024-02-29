@@ -18,13 +18,23 @@ function Sidebar({ selectedLanguages, setSelectedLanguages }) {
         {/* <h2 className="text-lg mb-2">Filter:</h2> */}
         {/* <h3>Programming language</h3> */}
         <div className="">
-        <div className="flex flex-col justify-between min-h-screen px-2 py-4">
-          {languages.map(({ name, image }) => (
+<div className="flex flex-col justify-between min-h-screen px-2 py-4">
+          {/* {languages?.map(({ name, image }) => (
             <div key={name} className={`p-1 items-center justify-center mx-auto cursor-pointer w-50 h-50 ${selectedLanguages.includes(name) ? 'scale-110 animate-pulse focus' : 'border-none'}`} onClick={() => handleLanguageClick(name)}>
               <Image src={image} alt={name} width={50} height={50} className="hover:scale-125 transition duration-100" />
-              
-            </div>
-          ))}
+        
+</div>
+          ))} */}
+{
+  languages?.map(item => {
+    return (
+      <div key={item.name} className={`p-1 items-center justify-center mx-auto cursor-pointer w-50 h-50 ${selectedLanguages.includes(item.name) ? 'scale-110 animate-pulse focus' : 'border-none'}`} onClick={() => handleLanguageClick(item.name)}>
+        <Image src={item.image} alt={item.name} width={50} height={50} className="hover:scale-125 transition duration-100" />
+      </div>
+    )
+  })
+}
+
         </div>
         </div>
         

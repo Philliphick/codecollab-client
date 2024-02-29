@@ -22,30 +22,39 @@ import { useEffect, useState } from "react";
    
 export default function Home() {
   const [loggedIn, setLoggedIn] = useState(false)
-      const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null)
       // const [currentUserPosts, setCurrentUserPosts] = useState([]);
       // const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      
-      try {
-        
-        const response = await axios.get(`http://localhost:5001/project/getprofile`, { withCredentials: true });
-        console.log("User fetched:",response.data.data)
-        setUser(response.data.data);
-        // if (user) {
-        //   setLoggedIn(true)
+
+      useEffect(() => {
+        const fetchUser = async () => {
           
-        // } else {
-        //   setLoggedIn(false)
-        // }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchUser()
-  }, [])
+          try {
+            
+            const response = await axios.get(`http://localhost:5001/project/getprofile`, { withCredentials: true });
+            console.log("User fetched:",response.data.data)
+            console.log(response)
+            setUser(response.data.data);
+            console.log(user)
+    
+            // if (user) {
+            //   setLoggedIn(true)
+              
+            // } else {
+            //   setLoggedIn(false)
+            // }
+          } catch (error) {
+            console.error(error);
+          }
+        }
+        fetchUser()
+        console.log(user)
+      }, [])
+
+      useEffect(() => {
+        console.log(user);
+      }, [user]);
 
   useEffect(() => {
     const setLogged = async () => {
@@ -84,7 +93,7 @@ export default function Home() {
       {loggedIn ? 
         <main className="h-full bg-gradient-to-br from-gray-700 from-0% via-cyan-900 via-40%  to-gray-900 to-90% flex min-h-screen flex-row flex-wrap items-center justify-between p-24 w-full h-full">
           <div className="flex-grow w-full h-full items-center justify-center">   
-            <Dashboard user={user} />
+            <Dashboard user={user}/>
           </div>
         </main>
         : 
