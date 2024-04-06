@@ -174,9 +174,9 @@ export const Dashboard = ({ user }) => {
               </div>
 
               <button
-                className="absolute bottom-8 right-0 bg-orange-700 rounded-full px-4 py-2 mr-2 z-50 items-center text-xs text-white flex opacity-90"
+                className="absolute bottom-8 right-0 bg-orange-800 text-white px-2 py-2 text-xl rounded-md mt-4 hover:bg-orange-900 mr-2 z-50 items-center text-white flex opacity-90"
                 onClick={scrollToTop}
-              >Back to Top</button>
+              >Top</button>
             </div>
 
             <div className="invisible md:visible fixed left-0 top-0 h-full">

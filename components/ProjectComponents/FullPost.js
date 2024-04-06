@@ -106,20 +106,23 @@ const FullPost = ({ postId, onClose, user, post }) => {
         <div className="mb-6 text-2xl  mx-16 leading-loose">{currentPost.description}</div>
         <hr className='mb-4 w-1/2 mx-auto mb-6'></hr>
 
-        <div className="mb-4 flex flex-row place-content-evenly w-full gap-10">
+        <div className="mb-4 flex flex-row justify-center w-full gap-4">
           {/* <div className="mb-4">Expected timeframe: {currentPost.timeframe}</div> */}
           <div className=" flex flex-wrap gap-2">
             {post.tags.map((tag, idx) => (
-              <span key={idx} className="bg-gradient-to-r from-cyan-500 to-gray-500 text-gray-900 px-2 py-1 text-xl rounded-md">{tag}</span>
+              <span key={idx} className="bg-gradient-to-r from-cyan-500 to-gray-500 text-gray-900 px-2 py-2 text-xl rounded-md">{tag}</span>
             ))}
           </div>
+          <a href={currentPost.repoLink} target='_blank'><img src="https://github.com/fluidicon.png" alt="GitHub logo" className="fixed w-11 h-11 hover:scale-110 "></img></a>
+
+
         </div>
         
         
         <div className=" flex flex-row justify-evenly  w-1/2" >
         {/* <div className="mb-4">Repo Link: {currentPost.repoLink}</div> */}
-        <button className="bg-orange-500 text-white px-2 py-1 text-xl rounded-md mt-4 hover:bg-orange-600" onClick={handleProfileClick}>Contact</button>
-        <a href={currentPost.repoLink} target='_blank'><img src="https://github.com/fluidicon.png" alt="GitHub logo" className="fixed w-12 h-12 m-2"></img></a>
+        <button className="bg-orange-500 text-white px-2 py-1 text-xl rounded-md mt-4 hover:bg-orange-600" onClick={handleProfileClick}>The Creator</button>
+        {/* <a href={currentPost.repoLink} target='_blank'><img src="https://github.com/fluidicon.png" alt="GitHub logo" className="fixed w-12 h-12 m-2"></img></a> */}
         </div>
         {showUserProfile && (
           <div className='relative'>
