@@ -7,3 +7,6 @@ A platform designed to assist developers in finding projects to contribute to. A
 **Client:** Next.js, TailwindCSS
 
 **Server:** Node, Express
+
+Server Repo: 
+https://github.com/Philliphick/codecollab-server
