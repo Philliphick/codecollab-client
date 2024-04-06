@@ -8,5 +8,5 @@ A platform designed to assist developers in finding projects to contribute to. A
 
 **Server:** Node, Express
 
-[Server Repo](https://github.com/Philliphick/codecollab-server)
+[Server Repository](https://github.com/Philliphick/codecollab-server)
 
