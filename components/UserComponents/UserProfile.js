@@ -9,7 +9,7 @@ const UserProfile = ({ownerOfPost}) => {
     useEffect(() => {
         const fetchUserData = async () => {
           try {
-            const response = await axios.get(`https://project-board-backend.onrender.com/project/getUserById/${ownerOfPost}`);
+            const response = await axios.get(`https://localhost:5001/project/getUserById/${ownerOfPost}`);
             setUserData(response.data[0]);
             
             console.log("userProfile user data pulled:",response.data)

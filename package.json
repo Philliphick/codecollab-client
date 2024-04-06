@@ -11,13 +11,16 @@
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",
     "@heroicons/react": "^2.1.1",
-    "axios": "^1.6.7",
+    "axios": "^1.6.8",
+    "clsx": "^2.1.0",
     "flowbite": "^2.3.0",
-    "next": "^14.1.0",
+    "framer-motion": "^11.0.8",
+    "next": "^14.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-responsive-carousel": "^3.2.23",
-    "react-router-dom": "^6.22.1"
+    "react-router-dom": "^6.22.1",
+    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
@@ -26,6 +29,5 @@
     "postcss": "^8",
     "supertest": "^6.3.4",
     "tailwindcss": "^3.3.0"
-  },
-  "proxy": "https://project-board-backend.onrender.com"
+  }
 }

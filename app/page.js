@@ -1,23 +1,11 @@
 "use client";
 import Image from "next/image";
 import Dashboard from "@/components/MainComponents/Dashboard";
-import LandingPage from "@/components/MainComponents/LandingPage";
 import axios from "axios";
-import { ShareableLinkGenerator as FullPost } from "@/components/ProjectComponents/FullPost";
-import MakePost from "@/components/MainComponents/CreatePost";
-import ProjectCard from "@/components/ProjectComponents/ProjectCard";
+import Link from "next/link";
 
 import { useEffect, useState } from "react";
-
-//bg-gradient-to-br from-gray-700 from-0% via-emerald-500 via-25% via-emerald-500 via-50% to-cyan-900 to-90% 
-
-// secondary colour: [#7A2410]?
-
-
-
-
-
-
+import Landing from "@/components/MainComponents/Landing";
   
    
 export default function Home() {
@@ -29,21 +17,16 @@ export default function Home() {
 
       useEffect(() => {
         const fetchUser = async () => {
-          
+          console.log("uyghvguyuyg")
+
           try {
             
-            const response = await axios.get(`https://project-board-backend.onrender.com/project/getprofile`, { withCredentials: true });
+            const response = await axios.get(`https://localhost:5001/project/getprofile`, { withCredentials: true });
             console.log("User fetched:",response.data.data)
             console.log(response)
             setUser(response.data.data);
             console.log(user)
     
-            // if (user) {
-            //   setLoggedIn(true)
-              
-            // } else {
-            //   setLoggedIn(false)
-            // }
           } catch (error) {
             console.error(error);
           }
@@ -69,15 +52,9 @@ export default function Home() {
 
   return (
     <>
-      {loggedIn ? 
-        <main className="h-full bg-gradient-to-br from-gray-700 from-0% via-cyan-900 via-40%  to-gray-900 to-90% flex min-h-screen flex-row flex-wrap items-center justify-between p-24 w-full h-full">
-          <div className="flex-grow w-full h-full items-center justify-center">   
-            <Dashboard user={user}/>
-          </div>
-        </main>
-        : 
-        <LandingPage/>
-      }
+    {loggedIn ? <Dashboard user={user}/> : <Landing />}
+            {/* <Dashboard user={user}/> */}
+     
     </>
   );
 }

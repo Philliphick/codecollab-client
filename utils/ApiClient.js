@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://project-board-backend.onrender.com" 
+const BASE_URL = "https://localhost:5001"; 
 
 export default class ApiClient {
   constructor() {
@@ -13,11 +13,13 @@ export default class ApiClient {
   }
 
   async login(username, password) {
+    console.log("this is login:", username, password);
     try {
       const response = await this.client.post(`${BASE_URL}/auth/login`, { username, password }, { withCredentials: true });
       console.log("this is response.data", response.data);
       return response.data;
     } catch (error) {
+      console.log("this is error", error);
       throw error;
     }
   }
