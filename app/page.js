@@ -21,7 +21,7 @@ export default function Home() {
 
           try {
             
-            const response = await axios.get(`https://localhost:5001/project/getprofile`, { withCredentials: true });
+            const response = await axios.get(`http://localhost:5001/project/getprofile`, { withCredentials: true });
             console.log("User fetched:",response.data.data)
             console.log(response)
             setUser(response.data.data);
@@ -52,9 +52,15 @@ export default function Home() {
 
   return (
     <>
-    {loggedIn ? <Dashboard user={user}/> : <Landing />}
-            {/* <Dashboard user={user}/> */}
-     
+      {loggedIn ? 
+        <main className="h-full bg-gradient-to-br from-gray-700 from-0% via-cyan-900 via-40%  to-gray-900 to-90% flex min-h-screen flex-row flex-wrap items-center justify-between p-24 w-full h-full">
+          <div className="flex-grow w-full h-full items-center justify-center">   
+            <Dashboard user={user}/>
+          </div>
+        </main>
+        : 
+        <Landing/>
+      }
     </>
   );
 }

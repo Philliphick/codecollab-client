@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://localhost:5001"; 
+const BASE_URL = "http://localhost:5001"; 
 
 export default class ApiClient {
   constructor() {
@@ -47,6 +47,7 @@ export default class ApiClient {
 
   async getProfile({ id }) {
       try {
+        console.log("this is id", id);
         const response = await this.client.get(`${BASE_URL}/project/user/${id}`, { withCredentials: true });
         return response.data;
       } catch (error) {

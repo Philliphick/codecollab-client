@@ -45,7 +45,7 @@ export const Dashboard = ({ user }) => {
     const fetchPosts = async () => {
       try {
         console.log("trying to fetch posts")
-        const response = await axios.get('https://localhost:5001/project', { withCredentials: true });
+        const response = await axios.get('http://localhost:5001/project', { withCredentials: true });
         console.log(response.data.data)
         setPosts(response.data.data);
       } catch (error) {
@@ -56,7 +56,7 @@ export const Dashboard = ({ user }) => {
     const fetchCurrentUserPosts = async () => {
       try {
         console.log("userId", userId)
-        const response = await axios.get(`https://localhost:5001/project/getProjectByUserId/${userId}`, { withCredentials: true });
+        const response = await axios.get(`http://localhost:5001/project/getProjectByUserId/${userId}`, { withCredentials: true });
         console.log("fetchCurrentUserPosts:", response.data.data)
         const currentPostArr = []
         const length = response.data.data.length
@@ -80,7 +80,7 @@ export const Dashboard = ({ user }) => {
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
-        const response = await axios.get('https://localhost:5001/project/allusers', { withCredentials: true });
+        const response = await axios.get('http://localhost:5001/project/allusers', { withCredentials: true });
         setAllUsers(response.data);
       } catch (error) {
         console.error(error);
@@ -130,7 +130,7 @@ export const Dashboard = ({ user }) => {
 
 
   return (
-    <div className=''>
+    <div className='bg-gradient-to-br from-gray-700 from-0% via-cyan-900 via-40%  to-gray-900 to-90%'>
       {loggedIn ? (
         <><div className=" flex justify-center">
         </div><div className="mt-8 w-1/2 flex justify-center">
