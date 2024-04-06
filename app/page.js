@@ -21,7 +21,7 @@ export default function Home() {
 
           try {
             
-            const response = await axios.get(`http://localhost:5001/project/getprofile`, { withCredentials: true });
+            const response = await axios.get(`https://codecollab-server-jva6.onrender.com/project/getprofile`, { withCredentials: true });
             console.log("User fetched:",response.data.data)
             console.log(response)
             setUser(response.data.data);

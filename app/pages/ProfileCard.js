@@ -20,7 +20,7 @@ export const ProfileCard = ({ users }) => {
       
       try {
         console.log("Hello world from fetchuser")
-        const response = await axios.get(`http://localhost:5001/project/getprofile`, {withCredentials: true});
+        const response = await axios.get(`https://codecollab-server-jva6.onrender.com/project/getprofile`, {withCredentials: true});
         console.log("Profile card response:",response.data.data)
         setUser(response.data.data);
       } catch (error) {

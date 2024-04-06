@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5001"; 
+const BASE_URL = "https://codecollab-server-jva6.onrender.com"; 
 
 export default class ApiClient {
   constructor() {

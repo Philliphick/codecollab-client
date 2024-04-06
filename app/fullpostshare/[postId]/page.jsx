@@ -20,7 +20,7 @@ const ProjectDetails = ({params}) => {
         const fetchPostByUser = async () => {
             try {
                 console.log("userId", id)
-                const response = await axios.get(`http://localhost:5001/project/getProjectByUserId/${id}`, { withCredentials: true });
+                const response = await axios.get(`https://codecollab-server-jva6.onrender.com/project/getProjectByUserId/${id}`, { withCredentials: true });
                 console.log("fetchCurrentUserPosts:", response.data.data)
                 
 
@@ -36,7 +36,7 @@ const ProjectDetails = ({params}) => {
       useEffect(() => {
         const fetchUserData = async () => {
           try {
-            const response = await axios.get(`http://localhost:5001/project/getUserById/${id}`);
+            const response = await axios.get(`https://codecollab-server-jva6.onrender.comproject/getUserById/${id}`);
             setUserData(response.data[0]);
             
             console.log("userProfile user data pulled:",response.data)
